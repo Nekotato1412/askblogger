@@ -19,6 +19,7 @@ const Images:Dictionary = {
 
 var _image = ""
 var _font = ""
+var _save_name = "blog"
 var _mode = MODES.EDIT
 
 func _ready():
@@ -43,7 +44,7 @@ func setup_mode():
 func snapshot():
 	var img = get_viewport().get_texture().get_data()
 	img.flip_y()
-	img.save_png("user://blog.png")
+	img.save_png("user://" + _save_name + ".png")
 	# warning-ignore:return_value_discarded
 	OS.shell_open(str("file://" + OS.get_user_data_dir()))
 	edit_mode()
@@ -85,10 +86,13 @@ func change_font():
 	$Super/FontDialog.show()
 
 func _on_font_selected(path):
-	print(path)
 	emit_signal("font_change", path)
 	$Super/FontDialog.hide()
 
 
 func _on_FontChange_button_up():
 	change_font()
+
+
+func _on_FileName_text_changed(new_text):
+	_save_name = new_text

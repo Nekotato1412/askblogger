@@ -186,6 +186,23 @@ margin_right = 45.0
 margin_bottom = 20.0
 text = "Change Font"
 
+[node name="FileName" type="LineEdit" parent="UILayer"]
+margin_top = 22.0
+margin_right = 132.0
+margin_bottom = 46.0
+text = "blog"
+align = 1
+max_length = 10
+
+[node name="Format" type="OptionButton" parent="UILayer"]
+margin_left = 139.0
+margin_top = 25.0
+margin_right = 195.0
+margin_bottom = 45.0
+text = ".png"
+items = [ ".png", null, false, 0, null ]
+selected = 0
+
 [node name="Super" type="CanvasLayer" parent="."]
 layer = 100
 
@@ -234,5 +251,6 @@ filters = PoolStringArray( "*.ttf ; TrueType Font" )
 [connection signal="button_up" from="UILayer/PresentationMode" to="." method="_on_PresentationMode_button_up"]
 [connection signal="button_up" from="UILayer/SetupMode" to="." method="_on_SetupMode_button_up"]
 [connection signal="button_up" from="UILayer/FontChange" to="." method="_on_FontChange_button_up"]
+[connection signal="text_changed" from="UILayer/FileName" to="." method="_on_FileName_text_changed"]
 [connection signal="file_selected" from="Super/ImageDialog" to="." method="_on_image_selected"]
 [connection signal="file_selected" from="Super/FontDialog" to="." method="_on_font_selected"]

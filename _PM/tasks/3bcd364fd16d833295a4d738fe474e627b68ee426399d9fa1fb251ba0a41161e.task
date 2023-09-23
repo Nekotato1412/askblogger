@@ -1,0 +1,11 @@
+{
+	"title": "Measurement Library",
+	"category": 0,
+	"assigned": 0,
+	"timestamp": 1695484429,
+	"hash": "3bcd364fd16d833295a4d738fe474e627b68ee426399d9fa1fb251ba0a41161e",
+	"description": "Create a basic library for using relative measurements when setting the size of things.\n\nREM (Root EctoMeters):\nFormulas where px is the root font size:\nRem = pt / Rem\npx = px * Rem\n\nEM (EctoMeters):\nFormulas where pt is the font size of the parent:\nE = pt / E\npt = pt * E\n\npM(portrait meters) for portraits where y is the background height:\n1pM = (y / 2) / 5\n\nCreate functions for each measurement to convert between the two for the purposes of sizing elements that contain\ntext or sensitive size requirements. Create functions for setting all constants in the Singleton for convenience and speed.\n\n",
+	"todos": [
+
+	]
+}

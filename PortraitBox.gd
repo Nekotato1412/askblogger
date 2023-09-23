@@ -34,7 +34,7 @@ func _on_PortraitBox_mouse_exited():
 	_is_hovering = false
 
 onready var last_mouse_pos = get_global_mouse_position()
-func _process(delta):
+func _process(_delta):
 	if not can_drag: return
 	
 	var current_mouse_pos = get_global_mouse_position()

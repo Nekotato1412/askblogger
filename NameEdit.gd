@@ -64,7 +64,7 @@ func _on_LineEdit_mouse_exited():
 
 onready var last_mouse_pos = get_global_mouse_position()
 
-func _process(delta):
+func _process(_delta):
 	if not can_drag: return
 	
 	var current_mouse_pos = get_global_mouse_position()
@@ -83,3 +83,11 @@ func _process(delta):
 	last_mouse_pos = current_mouse_pos
 		
 		
+
+
+func _on_Main_font_change(path):
+	var font = get_font("font")
+	var fontData = DynamicFontData.new()
+	fontData.font_path = path
+	font.font_data = fontData
+	add_font_override("font", font)

@@ -3,6 +3,7 @@ extends Control
 signal presentation_mode
 signal edit_mode
 signal setup_mode
+signal font_change
 
 enum MODES {
 	PRESENTATION,
@@ -17,6 +18,7 @@ const Images:Dictionary = {
 }
 
 var _image = ""
+var _font = ""
 var _mode = MODES.EDIT
 
 func _ready():
@@ -30,7 +32,6 @@ func presentation_mode():
 	# warning-ignore:return_value_discarded
 	get_tree().create_timer(1).connect("timeout", self, "snapshot")
 	
-
 func edit_mode():
 	_mode = MODES.EDIT
 	emit_signal("edit_mode")
@@ -60,13 +61,13 @@ func _on_SetupMode_button_up():
 
 func change_image(which: String):
 	_image = Images.get(which)
-	$Super/FileDialog.show()
+	$Super/ImageDialog.show()
 	
 func _on_image_selected(path):
 	var image = Image.new()
 	var err = image.load(path)
 	if (err != 0):
-		$Super/FileDialog.hide()
+		$Super/ImageDialog.hide()
 		return
 	
 	# Yup, this causes a memory leak. Too bad!
@@ -75,7 +76,19 @@ func _on_image_selected(path):
 	
 	get_node(_image).texture = texture
 	
-	$Super/FileDialog.hide()
+	$Super/ImageDialog.hide()
+	
 func _on_image_change(identifier: String):
 	change_image(identifier)
 
+func change_font():
+	$Super/FontDialog.show()
+
+func _on_font_selected(path):
+	print(path)
+	emit_signal("font_change", path)
+	$Super/FontDialog.hide()
+
+
+func _on_FontChange_button_up():
+	change_font()

@@ -68,7 +68,7 @@ func _on_DialogContent_mouse_exited():
 	_is_hovering = false
 
 onready var last_mouse_pos = get_global_mouse_position()
-func _process(delta):
+func _process(_delta):
 	if not can_drag: return
 	
 	var current_mouse_pos = get_global_mouse_position()
@@ -85,3 +85,12 @@ func _process(delta):
 		rect_global_position.y = clamp(rect_global_position.y, 0, screen_size.y - rect_size.y)
 		
 	last_mouse_pos = current_mouse_pos
+
+
+func _on_Main_font_change(path):
+	var font = get_font("font")
+	var fontData = DynamicFontData.new()
+	fontData.font_path = path
+	font.font_data = fontData
+	add_font_override("font", font)
+	

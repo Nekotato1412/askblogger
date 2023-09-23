@@ -1,0 +1,11 @@
+{
+	"title": "Custom Font",
+	"category": 1,
+	"assigned": 0,
+	"timestamp": 1695481081,
+	"hash": "236b85651c27f5663a0a0bde7e60d488b78370fc425ff142d228b2a976d6fdd8",
+	"description": "Add the ability to change the font used for all of the text but keep a default font included just in case.",
+	"todos": [
+
+	]
+}

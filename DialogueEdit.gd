@@ -61,10 +61,10 @@ func _on_Main_setup_mode():
 	setup_stylebox()
 	can_drag = true
 
-func _on_DialogContent_focus_entered():
+func _on_DialogContent_mouse_entered():
 	_is_hovering = true
 
-func _on_DialogContent_focus_exited():
+func _on_DialogContent_mouse_exited():
 	_is_hovering = false
 
 onready var last_mouse_pos = get_global_mouse_position()

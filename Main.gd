@@ -47,6 +47,11 @@ func snapshot():
 	OS.shell_open(str("file://" + OS.get_user_data_dir()))
 	edit_mode()
 
+func _process(_delta):
+	if Input.is_action_just_released("ui_cancel"):
+		if _mode == MODES.SETUP:
+			edit_mode()
+
 func _on_PresentationMode_button_up():
 	presentation_mode()
 
@@ -73,3 +78,4 @@ func _on_image_selected(path):
 	$Super/FileDialog.hide()
 func _on_image_change(identifier: String):
 	change_image(identifier)
+

@@ -1,0 +1,11 @@
+{
+	"title": "Custom Save Name",
+	"category": 1,
+	"assigned": 0,
+	"timestamp": 1695483539,
+	"hash": "c76aa0f0af7435bce2d2baad90332e35eb1adb0098426c709c0266ff0d53e466",
+	"description": "Add the ability to name the output file otherwise default to blog.png ",
+	"todos": [
+
+	]
+}

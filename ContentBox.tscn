@@ -1,0 +1,7 @@
+[gd_scene format=2]
+
+[node name="ContentBox" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -540.0
+margin_bottom = -380.0

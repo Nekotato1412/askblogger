@@ -1,0 +1,11 @@
+{
+	"title": "Structure Refactor",
+	"category": 3,
+	"assigned": 0,
+	"timestamp": 1695470545,
+	"hash": "67c6e346190aebcf591997297a47c122baff6179d2d1b7df1a42a8f0f5a9b53b",
+	"description": "Change the Images enum to a Dictionary of identifiers &  NodePaths and change the multiple button signals to a single \nsignal expecting an identifier.\nMake each button send an identifier through the signal.",
+	"todos": [
+
+	]
+}

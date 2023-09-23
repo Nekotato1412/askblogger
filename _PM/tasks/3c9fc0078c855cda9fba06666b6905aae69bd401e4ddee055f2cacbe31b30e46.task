@@ -1,0 +1,11 @@
+{
+	"title": "Custom DialogContent Rect",
+	"category": 1,
+	"assigned": 0,
+	"timestamp": 1695470773,
+	"hash": "3c9fc0078c855cda9fba06666b6905aae69bd401e4ddee055f2cacbe31b30e46",
+	"description": "Create a 'Setup' mode that hides the UI Layer and allows the user to see the Dialog box which they can click and drag to move\nup, down, left or right but never in a way that causes it to go off screen.",
+	"todos": [
+
+	]
+}

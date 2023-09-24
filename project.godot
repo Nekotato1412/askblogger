@@ -15,6 +15,10 @@ run/main_scene="res://Main.tscn"
 boot_splash/show_image=false
 config/icon="res://icon.png"
 
+[autoload]
+
+Measurement="*res://autoload/Measurement.tscn"
+
 [display]
 
 window/size/width=640

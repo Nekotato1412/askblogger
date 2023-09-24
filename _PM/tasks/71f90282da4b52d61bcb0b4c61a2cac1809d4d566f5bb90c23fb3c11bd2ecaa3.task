@@ -1,0 +1,11 @@
+{
+	"title": "Fluid Portrait Placement",
+	"category": 0,
+	"assigned": 0,
+	"timestamp": 1695490644,
+	"hash": "71f90282da4b52d61bcb0b4c61a2cac1809d4d566f5bb90c23fb3c11bd2ecaa3",
+	"description": "Allow the portrait to be off screen up to a maximum of only 1/8th of its size showing.",
+	"todos": [
+
+	]
+}

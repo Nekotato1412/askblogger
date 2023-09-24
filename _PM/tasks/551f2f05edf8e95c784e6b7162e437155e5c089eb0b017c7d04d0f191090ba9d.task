@@ -1,0 +1,11 @@
+{
+	"title": "Save Support",
+	"category": 0,
+	"assigned": 0,
+	"timestamp": 1695491076,
+	"hash": "551f2f05edf8e95c784e6b7162e437155e5c089eb0b017c7d04d0f191090ba9d",
+	"description": "Make images copy inside of the program's data directory and save their paths to a preferences file. Whenever the user hits 'save' also save\nthe text they have entered.",
+	"todos": [
+
+	]
+}

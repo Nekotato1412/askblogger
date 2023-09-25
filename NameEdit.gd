@@ -83,8 +83,6 @@ func _process(_delta):
 	last_mouse_pos = current_mouse_pos
 		
 		
-
-
 func _on_Main_font_change(path):
 	var font = get_font("font")
 	var fontData = DynamicFontData.new()

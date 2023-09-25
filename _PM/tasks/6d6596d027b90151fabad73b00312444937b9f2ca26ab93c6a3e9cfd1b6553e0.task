@@ -4,7 +4,7 @@
 	"assigned": 0,
 	"timestamp": 1695484258,
 	"hash": "6d6596d027b90151fabad73b00312444937b9f2ca26ab93c6a3e9cfd1b6553e0",
-	"description": "Add the ability to scale the textboxes and change the image (window) size to either RPG Maker VXA (640x480) C0var1ant (800x600) or Custom",
+	"description": "Add the ability to change the image (window) size to either RPG Maker VXA (640x480) C0var1ant (800x600) or Custom",
 	"todos": [
 
 	]

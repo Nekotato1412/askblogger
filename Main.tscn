@@ -233,15 +233,6 @@ text = "blog"
 align = 1
 max_length = 10
 
-[node name="Format" type="OptionButton" parent="UILayer"]
-margin_left = 139.0
-margin_top = 25.0
-margin_right = 195.0
-margin_bottom = 45.0
-text = ".png"
-items = [ ".png", null, false, 0, null ]
-selected = 0
-
 [node name="Super" type="CanvasLayer" parent="."]
 layer = 100
 
@@ -254,7 +245,7 @@ dialog_text = "Choose an image"
 dialog_hide_on_ok = true
 mode = 0
 access = 2
-filters = PoolStringArray( "*.png ; PNG Images", "*.jpg ; JPG Images", "*.jpeg ; JPEG Images" )
+filters = PoolStringArray( "*.png ; Portable Network Graphics", "*.jpg ; Lossy Compression", "*.jpeg ; Lossy Compression", "*.webp ; WebP", "*.tga ; Truevision Targa", "*.bmp ; Bitmap Image" )
 
 [node name="FontDialog" type="FileDialog" parent="Super"]
 anchor_right = 1.0
@@ -271,28 +262,28 @@ filters = PoolStringArray( "*.ttf ; TrueType Font" )
 [connection signal="edit_mode" from="." to="DialogLayer/DialogBox/DialogContent" method="_on_Main_edit_mode"]
 [connection signal="edit_mode" from="." to="DialogLayer/DialogBox/LineEdit" method="_on_Main_edit_mode"]
 [connection signal="edit_mode" from="." to="DialogLayer/DialogBox/D_Scale_Widget_Y" method="_on_Main_edit_mode"]
-[connection signal="edit_mode" from="." to="UILayer" method="_on_Main_edit_mode"]
 [connection signal="edit_mode" from="." to="DialogLayer/DialogBox/D_Scale_Widget_X" method="_on_Main_edit_mode"]
 [connection signal="edit_mode" from="." to="DialogLayer/DialogBox/N_Scale_Widget_X" method="_on_Main_edit_mode"]
 [connection signal="edit_mode" from="." to="DialogLayer/DialogBox/N_Scale_Widget_Y" method="_on_Main_edit_mode"]
+[connection signal="edit_mode" from="." to="UILayer" method="_on_Main_edit_mode"]
 [connection signal="font_change" from="." to="DialogLayer/DialogBox/DialogContent" method="_on_Main_font_change"]
 [connection signal="font_change" from="." to="DialogLayer/DialogBox/LineEdit" method="_on_Main_font_change"]
 [connection signal="presentation_mode" from="." to="PortraitLayer/PortraitBox" method="_on_Main_presentation_mode"]
 [connection signal="presentation_mode" from="." to="DialogLayer/DialogBox/DialogContent" method="_on_Main_presentation_mode"]
 [connection signal="presentation_mode" from="." to="DialogLayer/DialogBox/LineEdit" method="_on_Main_presentation_mode"]
 [connection signal="presentation_mode" from="." to="DialogLayer/DialogBox/D_Scale_Widget_Y" method="_on_Main_presentation_mode"]
-[connection signal="presentation_mode" from="." to="UILayer" method="_on_Main_presentation_mode"]
 [connection signal="presentation_mode" from="." to="DialogLayer/DialogBox/D_Scale_Widget_X" method="_on_Main_presentation_mode"]
 [connection signal="presentation_mode" from="." to="DialogLayer/DialogBox/N_Scale_Widget_X" method="_on_Main_presentation_mode"]
 [connection signal="presentation_mode" from="." to="DialogLayer/DialogBox/N_Scale_Widget_Y" method="_on_Main_presentation_mode"]
+[connection signal="presentation_mode" from="." to="UILayer" method="_on_Main_presentation_mode"]
 [connection signal="setup_mode" from="." to="PortraitLayer/PortraitBox" method="_on_Main_setup_mode"]
 [connection signal="setup_mode" from="." to="DialogLayer/DialogBox/DialogContent" method="_on_Main_setup_mode"]
 [connection signal="setup_mode" from="." to="DialogLayer/DialogBox/LineEdit" method="_on_Main_setup_mode"]
 [connection signal="setup_mode" from="." to="DialogLayer/DialogBox/D_Scale_Widget_Y" method="_on_Main_setup_mode"]
-[connection signal="setup_mode" from="." to="UILayer" method="_on_Main_setup_mode"]
 [connection signal="setup_mode" from="." to="DialogLayer/DialogBox/D_Scale_Widget_X" method="_on_Main_setup_mode"]
 [connection signal="setup_mode" from="." to="DialogLayer/DialogBox/N_Scale_Widget_X" method="_on_Main_setup_mode"]
 [connection signal="setup_mode" from="." to="DialogLayer/DialogBox/N_Scale_Widget_Y" method="_on_Main_setup_mode"]
+[connection signal="setup_mode" from="." to="UILayer" method="_on_Main_setup_mode"]
 [connection signal="mouse_entered" from="PortraitLayer/PortraitBox" to="PortraitLayer/PortraitBox" method="_on_PortraitBox_mouse_entered"]
 [connection signal="mouse_exited" from="PortraitLayer/PortraitBox" to="PortraitLayer/PortraitBox" method="_on_PortraitBox_mouse_exited"]
 [connection signal="mouse_entered" from="DialogLayer/DialogBox/DialogContent" to="DialogLayer/DialogBox/DialogContent" method="_on_DialogContent_mouse_entered"]

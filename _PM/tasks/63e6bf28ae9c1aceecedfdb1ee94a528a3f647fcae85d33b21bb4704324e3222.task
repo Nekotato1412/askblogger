@@ -1,0 +1,11 @@
+{
+	"title": "Codebase Cleanup",
+	"category": 1,
+	"assigned": 0,
+	"timestamp": 1695749715,
+	"hash": "63e6bf28ae9c1aceecedfdb1ee94a528a3f647fcae85d33b21bb4704324e3222",
+	"description": "Organize the Codebase file structure to make a little more sense.",
+	"todos": [
+
+	]
+}

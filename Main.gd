@@ -89,10 +89,8 @@ func _on_font_selected(path):
 	emit_signal("font_change", path)
 	$Super/FontDialog.hide()
 
-
 func _on_FontChange_button_up():
 	change_font()
-
 
 func _on_FileName_text_changed(new_text):
 	_save_name = new_text

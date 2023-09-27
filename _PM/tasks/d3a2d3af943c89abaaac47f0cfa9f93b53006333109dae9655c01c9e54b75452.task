@@ -1,0 +1,11 @@
+{
+	"title": "Portrait Sizing",
+	"category": 2,
+	"assigned": 0,
+	"timestamp": 1695844060,
+	"hash": "d3a2d3af943c89abaaac47f0cfa9f93b53006333109dae9655c01c9e54b75452",
+	"description": "The portrait rect does not correctly size itself when resizing so ensure it does with the same ratio. Subtract \nthe difference of the rect size from the window size before resizing and then use this value to calculate the\nnew ratio of the rect size. Then move it by the amount scaled so it's always in the same position on screen.",
+	"todos": [
+
+	]
+}

@@ -79,6 +79,7 @@ func _process(_delta):
 		_is_dragging = false
 		
 	if _is_dragging:
+		screen_size = get_viewport_rect().size
 		rect_global_position += current_mouse_pos - last_mouse_pos
 		
 		rect_global_position.x = clamp(rect_global_position.x, 0, screen_size.x - rect_size.x)
@@ -93,4 +94,3 @@ func _on_Main_font_change(path):
 	fontData.font_path = path
 	font.font_data = fontData
 	add_font_override("font", font)
-	

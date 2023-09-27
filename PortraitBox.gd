@@ -49,6 +49,7 @@ func _process(_delta):
 		_is_dragging = false
 		
 	if _is_dragging:
+		screen_size = get_viewport_rect().size
 		rect_global_position += current_mouse_pos - last_mouse_pos
 		
 		var bounds_x = rect_size.x + 75

@@ -1,0 +1,11 @@
+{
+	"title": "Textbox Sizing",
+	"category": 2,
+	"assigned": 0,
+	"timestamp": 1695844622,
+	"hash": "fc2b3efa4764a6052b99be8a5dc685b052aefb32dce75367e3d907c6cd28ae9b",
+	"description": "Change the sizing of the textboxes when the screen resolution is changed to be the same ratio and position\nso it always starts correct in terms of the defaults.",
+	"todos": [
+
+	]
+}

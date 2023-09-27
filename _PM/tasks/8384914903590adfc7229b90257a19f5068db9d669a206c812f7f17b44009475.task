@@ -1,0 +1,11 @@
+{
+	"title": "Correct Bounds",
+	"category": 3,
+	"assigned": 0,
+	"timestamp": 1695844110,
+	"hash": "8384914903590adfc7229b90257a19f5068db9d669a206c812f7f17b44009475",
+	"description": "Have the bounds update when the window resolution is changed.",
+	"todos": [
+
+	]
+}

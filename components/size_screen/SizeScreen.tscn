@@ -1,15 +1,15 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Presets.gd" type="Script" id=1]
-[ext_resource path="res://fonts/root_font.tres" type="DynamicFont" id=2]
-[ext_resource path="res://SizeForm.gd" type="Script" id=3]
-[ext_resource path="res://fonts/small_font.tres" type="DynamicFont" id=4]
-[ext_resource path="res://SizeSelection.gd" type="Script" id=5]
+[ext_resource path="res://components/size_screen/SizeSelection.gd" type="Script" id=1]
+[ext_resource path="res://components/size_screen/Presets.gd" type="Script" id=2]
+[ext_resource path="res://components/size_screen/SizeForm.gd" type="Script" id=3]
+[ext_resource path="res://assets/fonts/small_font.tres" type="DynamicFont" id=4]
+[ext_resource path="res://assets/fonts/root_font.tres" type="DynamicFont" id=5]
 
-[node name="SizeDropdown" type="Panel"]
+[node name="SizeScreen" type="Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 5 )
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": true
 }
@@ -34,7 +34,7 @@ script = ExtResource( 3 )
 [node name="Label" type="Label" parent="Container/SizeForm"]
 margin_right = 194.0
 margin_bottom = 23.0
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 5 )
 text = "Choose an image size."
 
 [node name="Presets" type="OptionButton" parent="Container/SizeForm"]
@@ -44,7 +44,7 @@ margin_bottom = 75.0
 text = "RPG Maker VXA (640x480)"
 items = [ "RPG Maker VXA (640x480)", null, false, 0, null, "Trilogy (800x600)", null, false, 1, null, "Custom", null, false, 2, null ]
 selected = 0
-script = ExtResource( 1 )
+script = ExtResource( 2 )
 
 [node name="Resolution" type="HBoxContainer" parent="Container/SizeForm/Presets"]
 visible = false
@@ -63,7 +63,7 @@ __meta__ = {
 [node name="Res_X" type="LineEdit" parent="Container/SizeForm/Presets/Resolution"]
 margin_right = 58.0
 margin_bottom = 33.0
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 5 )
 text = "640"
 align = 1
 max_length = 4
@@ -84,7 +84,7 @@ uppercase = true
 margin_left = 73.0
 margin_right = 131.0
 margin_bottom = 33.0
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 5 )
 text = "480"
 align = 1
 max_length = 4
@@ -97,7 +97,7 @@ margin_top = 139.0
 margin_right = 194.0
 margin_bottom = 188.0
 custom_colors/font_color = Color( 1, 0.337255, 0.337255, 1 )
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 5 )
 text = "Invalid image size. Please correct your choice."
 align = 1
 autowrap = true
@@ -106,7 +106,7 @@ autowrap = true
 margin_top = 139.0
 margin_right = 194.0
 margin_bottom = 168.0
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 5 )
 text = "Confirm"
 
 [connection signal="set_size" from="Container/SizeForm" to="." method="_on_SizeForm_set_size"]

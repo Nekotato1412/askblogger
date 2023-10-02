@@ -1,0 +1,107 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://assets/fonts/root_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://components/dialog_box/NameEdit.gd" type="Script" id=2]
+[ext_resource path="res://components/dialog_box/DialogBox.gd" type="Script" id=3]
+[ext_resource path="res://generic_scripts/GenericChangeTexture.gd" type="Script" id=4]
+[ext_resource path="res://assets/fonts/heading_font.tres" type="DynamicFont" id=5]
+[ext_resource path="res://components/dialog_box/DialogueEdit.gd" type="Script" id=6]
+[ext_resource path="res://components/scale_widget/scale_widget.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/images/default_textbox.png" type="Texture" id=8]
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[sub_resource type="StyleBoxEmpty" id=7]
+
+[sub_resource type="StyleBoxEmpty" id=8]
+
+[sub_resource type="StyleBoxEmpty" id=9]
+
+[node name="DialogBox" type="Node"]
+script = ExtResource( 3 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 322.0
+margin_right = 1.0
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 7
+script = ExtResource( 4 )
+
+[node name="DialogContent" type="TextEdit" parent="." groups=["presentable"]]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = -107.0
+margin_right = 632.0
+margin_bottom = -5.0
+custom_fonts/font = ExtResource( 1 )
+custom_styles/read_only = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/normal = SubResource( 4 )
+custom_styles/completion = SubResource( 5 )
+text = "Text goes here..."
+context_menu_enabled = false
+drag_and_drop_selection_enabled = false
+wrap_enabled = true
+script = ExtResource( 6 )
+
+[node name="LineEdit" type="LineEdit" parent="." groups=["presentable"]]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = -154.0
+margin_right = 143.0
+margin_bottom = -128.0
+custom_fonts/font = ExtResource( 5 )
+custom_styles/read_only = SubResource( 7 )
+custom_styles/focus = SubResource( 8 )
+custom_styles/normal = SubResource( 9 )
+align = 1
+max_length = 24
+context_menu_enabled = false
+placeholder_text = "Name..."
+script = ExtResource( 2 )
+
+[node name="D_Scale_Widget_Y" parent="." instance=ExtResource( 7 )]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -18.0
+margin_top = 109.0
+margin_right = -8.0
+margin_bottom = 119.0
+target = NodePath("../DialogContent")
+edge_mode = 1
+
+[node name="D_Scale_Widget_X" parent="." instance=ExtResource( 7 )]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -18.0
+margin_top = 109.0
+margin_right = -8.0
+margin_bottom = 119.0
+target = NodePath("../DialogContent")
+
+[node name="N_Scale_Widget_X" parent="." instance=ExtResource( 7 )]
+margin_right = 10.0
+margin_bottom = 10.0
+target = NodePath("../LineEdit")
+
+[node name="N_Scale_Widget_Y" parent="." instance=ExtResource( 7 )]
+margin_right = 10.0
+margin_bottom = 10.0
+target = NodePath("../LineEdit")
+edge_mode = 1
+
+[connection signal="mouse_entered" from="DialogContent" to="DialogContent" method="_on_DialogContent_mouse_entered"]
+[connection signal="mouse_exited" from="DialogContent" to="DialogContent" method="_on_DialogContent_mouse_exited"]
+[connection signal="mouse_entered" from="LineEdit" to="LineEdit" method="_on_LineEdit_mouse_entered"]
+[connection signal="mouse_exited" from="LineEdit" to="LineEdit" method="_on_LineEdit_mouse_exited"]

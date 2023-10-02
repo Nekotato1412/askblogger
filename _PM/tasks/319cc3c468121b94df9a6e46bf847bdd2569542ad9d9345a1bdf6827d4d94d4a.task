@@ -1,0 +1,11 @@
+{
+	"title": "Portrait Border",
+	"category": 3,
+	"assigned": 0,
+	"timestamp": 1695830028,
+	"hash": "319cc3c468121b94df9a6e46bf847bdd2569542ad9d9345a1bdf6827d4d94d4a",
+	"description": "Render a border around the portrait while in edit mode.",
+	"todos": [
+
+	]
+}

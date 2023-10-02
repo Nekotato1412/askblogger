@@ -13,7 +13,7 @@ enum MODES {
 
 const Images:Dictionary = {
 	"background": "BackgroundLayer/Background",
-	"portrait": "PortraitLayer/PortraitBox/Texture",
+	"portrait": "PortraitLayer/Portrait",
 	"dialog": "DialogLayer/DialogBox/TextureRect"
 }
 
@@ -75,7 +75,7 @@ func _on_image_selected(path):
 	var texture = ImageTexture.new()
 	texture.create_from_image(image)
 	
-	get_node(_image).texture = texture
+	get_node(_image).change_texture(texture)
 	
 	$Super/ImageDialog.hide()
 	

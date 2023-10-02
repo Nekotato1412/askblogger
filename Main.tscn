@@ -1,7 +1,7 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://scale_widget.tscn" type="PackedScene" id=1]
-[ext_resource path="res://fonts/small_font.tres" type="DynamicFont" id=2]
+[ext_resource path="res://SizeDropdown.tscn" type="PackedScene" id=2]
 [ext_resource path="res://fonts/root_font.tres" type="DynamicFont" id=3]
 [ext_resource path="res://fonts/heading_font.tres" type="DynamicFont" id=4]
 [ext_resource path="res://NameEdit.gd" type="Script" id=5]
@@ -10,9 +10,11 @@
 [ext_resource path="res://UILayer.gd" type="Script" id=8]
 [ext_resource path="res://ImageChangeButton.gd" type="Script" id=9]
 [ext_resource path="res://PortraitBox.gd" type="Script" id=10]
-[ext_resource path="res://Presets.gd" type="Script" id=11]
-[ext_resource path="res://SizeForm.gd" type="Script" id=12]
-[ext_resource path="res://SizeSelection.gd" type="Script" id=13]
+[ext_resource path="res://default_textbox.png" type="Texture" id=11]
+[ext_resource path="res://default_portrait.png" type="Texture" id=12]
+[ext_resource path="res://default_background.jpg" type="Texture" id=13]
+[ext_resource path="res://Background.gd" type="Script" id=14]
+[ext_resource path="res://TextboxTexture.gd" type="Script" id=15]
 
 [sub_resource type="StyleBoxEmpty" id=2]
 
@@ -31,6 +33,7 @@
 [node name="Main" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 script = ExtResource( 6 )
 
 [node name="BackgroundLayer" type="CanvasLayer" parent="."]
@@ -39,57 +42,47 @@ layer = -1
 [node name="Background" type="TextureRect" parent="BackgroundLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+texture = ExtResource( 13 )
 expand = true
 stretch_mode = 1
+script = ExtResource( 14 )
 
 [node name="PortraitLayer" type="CanvasLayer" parent="."]
 layer = 0
 
-[node name="PortraitBox" type="Control" parent="PortraitLayer"]
+[node name="Portrait" type="TextureRect" parent="PortraitLayer"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -86.0
-margin_top = -153.0
-margin_right = 86.0
-margin_bottom = 153.0
+margin_left = -320.0
+margin_top = -240.0
+margin_right = 320.0
+margin_bottom = 240.0
+texture = ExtResource( 12 )
 script = ExtResource( 10 )
-
-[node name="Texture" type="TextureRect" parent="PortraitLayer/PortraitBox"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -86.0
-margin_top = -153.0
-margin_right = 86.0
-margin_bottom = 153.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-expand = true
-stretch_mode = 4
 
 [node name="DialogLayer" type="CanvasLayer" parent="."]
 
-[node name="DialogBox" type="Control" parent="DialogLayer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="DialogBox" type="Node" parent="DialogLayer"]
 
 [node name="TextureRect" type="TextureRect" parent="DialogLayer/DialogBox"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 90.0
-margin_bottom = 90.0
+margin_top = 322.0
+margin_right = 1.0
+texture = ExtResource( 11 )
 expand = true
-stretch_mode = 5
+stretch_mode = 7
+script = ExtResource( 15 )
 
 [node name="DialogContent" type="TextEdit" parent="DialogLayer/DialogBox" groups=["presentable"]]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 66.5
-margin_top = -71.0
-margin_right = 573.5
+margin_left = 8.0
+margin_top = -107.0
+margin_right = 632.0
+margin_bottom = -5.0
 custom_fonts/font = ExtResource( 3 )
 custom_styles/read_only = SubResource( 2 )
 custom_styles/focus = SubResource( 3 )
@@ -104,10 +97,10 @@ script = ExtResource( 7 )
 [node name="LineEdit" type="LineEdit" parent="DialogLayer/DialogBox" groups=["presentable"]]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 38.0
-margin_top = -119.0
-margin_right = 192.0
-margin_bottom = -93.0
+margin_left = 3.0
+margin_top = -154.0
+margin_right = 143.0
+margin_bottom = -128.0
 custom_fonts/font = ExtResource( 4 )
 custom_styles/read_only = SubResource( 7 )
 custom_styles/focus = SubResource( 8 )
@@ -227,109 +220,6 @@ max_length = 10
 [node name="Super" type="CanvasLayer" parent="."]
 layer = 100
 
-[node name="SizeDropdown" type="Panel" parent="Super"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-script = ExtResource( 13 )
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="Container" type="VBoxContainer" parent="Super/SizeDropdown"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -97.0
-margin_top = -80.5
-margin_right = 97.0
-margin_bottom = 80.5
-custom_constants/separation = 64
-
-[node name="SizeForm" type="VBoxContainer" parent="Super/SizeDropdown/Container"]
-margin_right = 194.0
-margin_bottom = 75.0
-custom_constants/separation = 32
-script = ExtResource( 12 )
-
-[node name="Label" type="Label" parent="Super/SizeDropdown/Container/SizeForm"]
-margin_right = 194.0
-margin_bottom = 23.0
-custom_fonts/font = ExtResource( 3 )
-text = "Choose an image size."
-
-[node name="Presets" type="OptionButton" parent="Super/SizeDropdown/Container/SizeForm"]
-margin_top = 55.0
-margin_right = 194.0
-margin_bottom = 75.0
-text = "RPG Maker VXA (640x480)"
-items = [ "RPG Maker VXA (640x480)", null, false, 0, null, "Trilogy (800x600)", null, false, 1, null, "Custom", null, false, 2, null ]
-selected = 0
-script = ExtResource( 11 )
-
-[node name="Resolution" type="HBoxContainer" parent="Super/SizeDropdown/Container/SizeForm/Presets"]
-visible = false
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -69.0
-margin_top = 7.0
-margin_right = 62.0
-margin_bottom = 31.0
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Res_X" type="LineEdit" parent="Super/SizeDropdown/Container/SizeForm/Presets/Resolution"]
-margin_right = 58.0
-margin_bottom = 33.0
-custom_fonts/font = ExtResource( 3 )
-text = "640"
-align = 1
-max_length = 4
-context_menu_enabled = false
-middle_mouse_paste_enabled = false
-
-[node name="Label_X" type="Label" parent="Super/SizeDropdown/Container/SizeForm/Presets/Resolution"]
-margin_left = 62.0
-margin_top = 8.0
-margin_right = 69.0
-margin_bottom = 25.0
-custom_fonts/font = ExtResource( 2 )
-text = "x"
-align = 1
-uppercase = true
-
-[node name="Res_Y" type="LineEdit" parent="Super/SizeDropdown/Container/SizeForm/Presets/Resolution"]
-margin_left = 73.0
-margin_right = 131.0
-margin_bottom = 33.0
-custom_fonts/font = ExtResource( 3 )
-text = "480"
-align = 1
-max_length = 4
-context_menu_enabled = false
-middle_mouse_paste_enabled = false
-
-[node name="ErrorLabel" type="Label" parent="Super/SizeDropdown/Container"]
-visible = false
-margin_top = 139.0
-margin_right = 194.0
-margin_bottom = 188.0
-custom_colors/font_color = Color( 1, 0.337255, 0.337255, 1 )
-custom_fonts/font = ExtResource( 3 )
-text = "Invalid image size. Please correct your choice."
-align = 1
-autowrap = true
-
-[node name="Confirm" type="Button" parent="Super/SizeDropdown/Container"]
-margin_top = 139.0
-margin_right = 194.0
-margin_bottom = 168.0
-custom_fonts/font = ExtResource( 3 )
-text = "Confirm"
-
 [node name="ImageDialog" type="FileDialog" parent="Super"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -352,7 +242,10 @@ mode = 0
 access = 2
 filters = PoolStringArray( "*.ttf ; TrueType Font" )
 
-[connection signal="edit_mode" from="." to="PortraitLayer/PortraitBox" method="_on_Main_edit_mode"]
+[node name="SizeDropdown" parent="Super" instance=ExtResource( 2 )]
+visible = false
+
+[connection signal="edit_mode" from="." to="PortraitLayer/Portrait" method="_on_Main_edit_mode"]
 [connection signal="edit_mode" from="." to="DialogLayer/DialogBox/DialogContent" method="_on_Main_edit_mode"]
 [connection signal="edit_mode" from="." to="DialogLayer/DialogBox/LineEdit" method="_on_Main_edit_mode"]
 [connection signal="edit_mode" from="." to="DialogLayer/DialogBox/D_Scale_Widget_Y" method="_on_Main_edit_mode"]
@@ -362,7 +255,7 @@ filters = PoolStringArray( "*.ttf ; TrueType Font" )
 [connection signal="edit_mode" from="." to="UILayer" method="_on_Main_edit_mode"]
 [connection signal="font_change" from="." to="DialogLayer/DialogBox/DialogContent" method="_on_Main_font_change"]
 [connection signal="font_change" from="." to="DialogLayer/DialogBox/LineEdit" method="_on_Main_font_change"]
-[connection signal="presentation_mode" from="." to="PortraitLayer/PortraitBox" method="_on_Main_presentation_mode"]
+[connection signal="presentation_mode" from="." to="PortraitLayer/Portrait" method="_on_Main_presentation_mode"]
 [connection signal="presentation_mode" from="." to="DialogLayer/DialogBox/DialogContent" method="_on_Main_presentation_mode"]
 [connection signal="presentation_mode" from="." to="DialogLayer/DialogBox/LineEdit" method="_on_Main_presentation_mode"]
 [connection signal="presentation_mode" from="." to="DialogLayer/DialogBox/D_Scale_Widget_Y" method="_on_Main_presentation_mode"]
@@ -370,7 +263,7 @@ filters = PoolStringArray( "*.ttf ; TrueType Font" )
 [connection signal="presentation_mode" from="." to="DialogLayer/DialogBox/N_Scale_Widget_X" method="_on_Main_presentation_mode"]
 [connection signal="presentation_mode" from="." to="DialogLayer/DialogBox/N_Scale_Widget_Y" method="_on_Main_presentation_mode"]
 [connection signal="presentation_mode" from="." to="UILayer" method="_on_Main_presentation_mode"]
-[connection signal="setup_mode" from="." to="PortraitLayer/PortraitBox" method="_on_Main_setup_mode"]
+[connection signal="setup_mode" from="." to="PortraitLayer/Portrait" method="_on_Main_setup_mode"]
 [connection signal="setup_mode" from="." to="DialogLayer/DialogBox/DialogContent" method="_on_Main_setup_mode"]
 [connection signal="setup_mode" from="." to="DialogLayer/DialogBox/LineEdit" method="_on_Main_setup_mode"]
 [connection signal="setup_mode" from="." to="DialogLayer/DialogBox/D_Scale_Widget_Y" method="_on_Main_setup_mode"]
@@ -378,8 +271,8 @@ filters = PoolStringArray( "*.ttf ; TrueType Font" )
 [connection signal="setup_mode" from="." to="DialogLayer/DialogBox/N_Scale_Widget_X" method="_on_Main_setup_mode"]
 [connection signal="setup_mode" from="." to="DialogLayer/DialogBox/N_Scale_Widget_Y" method="_on_Main_setup_mode"]
 [connection signal="setup_mode" from="." to="UILayer" method="_on_Main_setup_mode"]
-[connection signal="mouse_entered" from="PortraitLayer/PortraitBox" to="PortraitLayer/PortraitBox" method="_on_PortraitBox_mouse_entered"]
-[connection signal="mouse_exited" from="PortraitLayer/PortraitBox" to="PortraitLayer/PortraitBox" method="_on_PortraitBox_mouse_exited"]
+[connection signal="mouse_entered" from="PortraitLayer/Portrait" to="PortraitLayer/Portrait" method="_on_Texture_mouse_entered"]
+[connection signal="mouse_exited" from="PortraitLayer/Portrait" to="PortraitLayer/Portrait" method="_on_Texture_mouse_exited"]
 [connection signal="mouse_entered" from="DialogLayer/DialogBox/DialogContent" to="DialogLayer/DialogBox/DialogContent" method="_on_DialogContent_mouse_entered"]
 [connection signal="mouse_exited" from="DialogLayer/DialogBox/DialogContent" to="DialogLayer/DialogBox/DialogContent" method="_on_DialogContent_mouse_exited"]
 [connection signal="mouse_entered" from="DialogLayer/DialogBox/LineEdit" to="DialogLayer/DialogBox/LineEdit" method="_on_LineEdit_mouse_entered"]
@@ -388,11 +281,5 @@ filters = PoolStringArray( "*.ttf ; TrueType Font" )
 [connection signal="button_up" from="UILayer/SetupMode" to="." method="_on_SetupMode_button_up"]
 [connection signal="button_up" from="UILayer/FontChange" to="." method="_on_FontChange_button_up"]
 [connection signal="text_changed" from="UILayer/FileName" to="." method="_on_FileName_text_changed"]
-[connection signal="set_size" from="Super/SizeDropdown/Container/SizeForm" to="Super/SizeDropdown" method="_on_SizeForm_set_size"]
-[connection signal="show_error" from="Super/SizeDropdown/Container/SizeForm" to="Super/SizeDropdown" method="_on_SizeForm_show_error"]
-[connection signal="item_selected" from="Super/SizeDropdown/Container/SizeForm/Presets" to="Super/SizeDropdown/Container/SizeForm/Presets" method="_on_Presets_item_selected"]
-[connection signal="text_changed" from="Super/SizeDropdown/Container/SizeForm/Presets/Resolution/Res_X" to="Super/SizeDropdown/Container/SizeForm/Presets" method="_on_Res_X_text_changed"]
-[connection signal="text_changed" from="Super/SizeDropdown/Container/SizeForm/Presets/Resolution/Res_Y" to="Super/SizeDropdown/Container/SizeForm/Presets" method="_on_Res_Y_text_changed"]
-[connection signal="button_up" from="Super/SizeDropdown/Container/Confirm" to="Super/SizeDropdown/Container/SizeForm" method="_on_Confirm_button_up"]
 [connection signal="file_selected" from="Super/ImageDialog" to="." method="_on_image_selected"]
 [connection signal="file_selected" from="Super/FontDialog" to="." method="_on_font_selected"]

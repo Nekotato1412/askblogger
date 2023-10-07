@@ -4,6 +4,7 @@ signal presentation_mode
 signal edit_mode
 signal setup_mode
 signal font_change
+signal font_size_change
 
 enum MODES {
 	PRESENTATION,
@@ -85,6 +86,9 @@ func _on_image_change(identifier: String):
 func change_font():
 	$Super/FontDialog.show()
 
+func change_font_size(new_size: int):
+	emit_signal("font_size_change", new_size)
+
 func _on_font_selected(path):
 	emit_signal("font_change", path)
 	$Super/FontDialog.hide()
@@ -94,3 +98,6 @@ func _on_FontChange_button_up():
 
 func _on_FileName_text_changed(new_text):
 	_save_name = new_text
+
+func _on_FontSize_font_size_changed(size):
+	change_font_size(size)

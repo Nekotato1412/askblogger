@@ -94,3 +94,6 @@ func _on_Main_font_change(path):
 	fontData.font_path = path
 	font.font_data = fontData
 	add_font_override("font", font)
+
+func _on_Main_font_size_change(size):
+	get_font("font").size = size

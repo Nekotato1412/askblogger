@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://components/dialog_box/DialogBox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://components/size_screen/SizeScreen.tscn" type="PackedScene" id=2]
@@ -24,6 +24,27 @@ func _on_Main_edit_mode():
 
 func _on_Main_setup_mode():
 	hide()
+"
+
+[sub_resource type="GDScript" id=11]
+resource_name = "FontSize"
+script/source = "extends LineEdit
+signal font_size_changed
+
+
+onready var old_text = text
+
+
+func _on_FontSize_text_entered(new_text):
+	if (int(new_text) == 0):
+		text = old_text
+		return
+
+	old_text = new_text
+	var new_size = clamp(int(new_text), 10, 24)
+	text = str(new_size)
+	
+	emit_signal(\"font_size_changed\", new_size)
 "
 
 [node name="Main" type="Control"]
@@ -77,26 +98,26 @@ script = ExtResource( 9 )
 identifier = "portrait"
 
 [node name="BackgroundChange" type="Button" parent="UILayer"]
-anchor_top = 0.5
-anchor_bottom = 0.5
-margin_left = 50.0
-margin_top = -50.0
-margin_right = 186.0
-margin_bottom = -30.0
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -251.0
+margin_top = 103.0
+margin_right = -87.0
+margin_bottom = 132.0
 custom_fonts/font = ExtResource( 3 )
 text = "Change Background"
 script = ExtResource( 9 )
 identifier = "background"
 
 [node name="DialogChange" type="Button" parent="UILayer"]
-anchor_left = 1.0
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -177.0
-margin_top = 104.0
-margin_right = -65.0
-margin_bottom = 124.0
+margin_left = -58.0
+margin_top = 73.0
+margin_right = 75.0
+margin_bottom = 102.0
 custom_fonts/font = ExtResource( 3 )
 text = "Change Textbox"
 script = ExtResource( 9 )
@@ -105,8 +126,10 @@ identifier = "dialog"
 [node name="SetupMode" type="Button" parent="UILayer"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -48.0
-margin_bottom = 20.0
+margin_left = -82.0
+margin_top = 25.0
+margin_right = -26.0
+margin_bottom = 54.0
 custom_fonts/font = ExtResource( 3 )
 text = "Setup"
 
@@ -120,13 +143,40 @@ custom_fonts/font = ExtResource( 3 )
 text = "Change Font"
 
 [node name="FileName" type="LineEdit" parent="UILayer"]
-margin_top = 22.0
-margin_right = 132.0
-margin_bottom = 46.0
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 2.0
+margin_top = -161.0
+margin_right = 134.0
+margin_bottom = -128.0
 custom_fonts/font = ExtResource( 3 )
 text = "blog"
 align = 1
 max_length = 10
+
+[node name="FontSize" type="LineEdit" parent="UILayer"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 3.0
+margin_top = 50.0
+margin_right = 61.0
+margin_bottom = 83.0
+custom_fonts/font = ExtResource( 3 )
+align = 1
+placeholder_text = "16"
+script = SubResource( 11 )
+
+[node name="Label" type="Label" parent="UILayer"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -44.0
+margin_top = 54.0
+margin_right = -4.0
+margin_bottom = 77.0
+custom_fonts/font = ExtResource( 3 )
+text = "Size"
+align = 1
+valign = 1
 
 [node name="Super" type="CanvasLayer" parent="."]
 layer = 100
@@ -159,6 +209,8 @@ visible = false
 [connection signal="edit_mode" from="." to="PortraitLayer/Portrait" method="_on_Main_edit_mode"]
 [connection signal="edit_mode" from="." to="DialogLayer/DialogBox" method="_on_Main_edit_mode"]
 [connection signal="edit_mode" from="." to="UILayer" method="_on_Main_edit_mode"]
+[connection signal="font_change" from="." to="DialogLayer/DialogBox" method="_on_Main_font_change"]
+[connection signal="font_size_change" from="." to="DialogLayer/DialogBox" method="_on_Main_font_size_change"]
 [connection signal="presentation_mode" from="." to="PortraitLayer/Portrait" method="_on_Main_presentation_mode"]
 [connection signal="presentation_mode" from="." to="DialogLayer/DialogBox" method="_on_Main_presentation_mode"]
 [connection signal="presentation_mode" from="." to="UILayer" method="_on_Main_presentation_mode"]
@@ -169,5 +221,7 @@ visible = false
 [connection signal="button_up" from="UILayer/SetupMode" to="." method="_on_SetupMode_button_up"]
 [connection signal="button_up" from="UILayer/FontChange" to="." method="_on_FontChange_button_up"]
 [connection signal="text_changed" from="UILayer/FileName" to="." method="_on_FileName_text_changed"]
+[connection signal="font_size_changed" from="UILayer/FontSize" to="." method="_on_FontSize_font_size_changed"]
+[connection signal="text_entered" from="UILayer/FontSize" to="UILayer/FontSize" method="_on_FontSize_text_entered"]
 [connection signal="file_selected" from="Super/ImageDialog" to="." method="_on_image_selected"]
 [connection signal="file_selected" from="Super/FontDialog" to="." method="_on_font_selected"]

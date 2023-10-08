@@ -23,7 +23,11 @@ var _image_name = "blog"
 var _font = ""
 var _mode = MODES.EDIT
 
-# TODO: Save Text Content, Scale and Position
+onready var dialog_rect = $DialogLayer/DialogBox/DialogContent.get_global_rect()
+onready var name_rect = $DialogLayer/DialogBox/LineEdit.get_global_rect()
+
+onready var dialog_path = $DialogLayer/DialogBox/DialogContent.get_path()
+onready var name_path = $DialogLayer/DialogBox/LineEdit.get_path()
 
 var _preferences_location = "user://data/"
 var _images_location = "user://data/images/"
@@ -37,8 +41,7 @@ func _ready():
 		if control.is_in_group("image_changer"):
 			control.connect("image_change", self, "_on_image_change")
 	
-	Preferences.save_name = "preferences"
-	
+	Preferences.set_save_name("preferences")
 	
 
 	var data_directory = Directory.new()	
@@ -78,11 +81,30 @@ func presentation_mode():
 	# warning-ignore:return_value_discarded
 	get_tree().create_timer(1).connect("timeout", self, "snapshot")
 	
+
+	var dialog = get_node(dialog_path)
+	var name = get_node(name_path)
+	
+	# Save Rects
+	dialog_rect = dialog.get_global_rect()
+	name_rect = name.get_global_rect()
+	
+	Preferences.add_rect(dialog_path, dialog_rect)
+	Preferences.add_rect(name_path, name_rect)
+	
+	# Save Text Content
+	Preferences.add_text(dialog_path, dialog.text)
+	Preferences.add_text(name_path, name.text)
+	
+	Preferences.save_to_disk(_preferences_location)
+	
 func edit_mode():
 	_mode = MODES.EDIT
 	emit_signal("edit_mode")
 
 func init_save():
+	Preferences.clear_save(_preferences_location)
+	
 	Preferences.add_font("root", "")
 	Preferences.add_font_size("root", 16)
 		
@@ -94,6 +116,9 @@ func init_save():
 	Preferences.add_text($DialogLayer/DialogBox/LineEdit.get_path(), "")
 		
 	Preferences.set_flag("wizard", true)
+	
+	Preferences.add_rect(dialog_path, dialog_rect)
+	Preferences.add_rect(name_path, name_rect)
 		
 	Preferences.save_to_disk(_preferences_location)
 
@@ -164,8 +189,16 @@ func change_font_size(new_size: int):
 func _on_font_selected(path):
 	emit_signal("font_change", path)
 	$Super/FontDialog.hide()
-	Preferences.add_font("root", path)
-	Preferences.save_to_disk(_preferences_location)
+	
+	var filename = path.get_file()
+	var font_dir = Directory.new()
+	if (font_dir.open(_preferences_location) == OK):
+		var file_path = _preferences_location + filename 
+		font_dir.copy(path, file_path)
+	
+		Preferences.clear_font("root")
+		Preferences.add_font("root", path)
+		Preferences.save_to_disk(_preferences_location)
 
 func _on_FontChange_button_up():
 	change_font()

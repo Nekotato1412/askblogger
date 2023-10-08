@@ -45,6 +45,10 @@ func _on_FontSize_text_entered(new_text):
 	text = str(new_size)
 	
 	emit_signal(\"font_size_changed\", new_size)
+
+
+func _on_Main_font_size_change(size):
+	self.placeholder_text = str(size)
 "
 
 [node name="Main" type="Control"]
@@ -221,6 +225,7 @@ margin_bottom = 29.0
 [connection signal="edit_mode" from="." to="UILayer" method="_on_Main_edit_mode"]
 [connection signal="font_change" from="." to="DialogLayer/DialogBox" method="_on_Main_font_change"]
 [connection signal="font_size_change" from="." to="DialogLayer/DialogBox" method="_on_Main_font_size_change"]
+[connection signal="font_size_change" from="." to="UILayer/FontSize" method="_on_Main_font_size_change"]
 [connection signal="presentation_mode" from="." to="PortraitLayer/Portrait" method="_on_Main_presentation_mode"]
 [connection signal="presentation_mode" from="." to="DialogLayer/DialogBox" method="_on_Main_presentation_mode"]
 [connection signal="presentation_mode" from="." to="UILayer" method="_on_Main_presentation_mode"]

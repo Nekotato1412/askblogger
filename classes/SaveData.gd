@@ -26,7 +26,6 @@ func set_save_name(new_name: String):
 
 func load_from_disk(location: String):
 	var save_file = load(location + self.save_name + ".tres")
-	print(str(save_file))
 	
 	if (save_file == null):
 		return ERR_FILE_NOT_FOUND

@@ -63,7 +63,6 @@ func save_to_disk(location: String):
 	return error
 
 func clear_save(location: String):
-	var path = location
 	var file_path = location + self.save_name + ".tres"
 	
 	var save_folder = Directory.new()
@@ -85,9 +84,13 @@ func clear_image(node:NodePath):
 
 func get_image(node: NodePath) -> ImageTexture:
 	if (!self.image_paths.has(node)): return null
+	if (self.image_paths[node] == ""): return null
 	
-	var image = load(self.image_paths[node])
-	if (image != null):
+	var path = ProjectSettings.globalize_path(self.image_paths[node])
+	
+	var image = Image.new()
+
+	if (image.load(path) == OK):
 		var texture = ImageTexture.new()
 		texture.create_from_image(image)
 		return texture

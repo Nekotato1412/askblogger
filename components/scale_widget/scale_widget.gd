@@ -42,7 +42,7 @@ func _on_Scale_Widget_mouse_exited():
 	_is_hovering = false
 
 onready var last_mouse_pos = get_global_mouse_position()
-func _process(delta):
+func _process(_delta):
 
 	
 	if edge_mode == Modes.X:

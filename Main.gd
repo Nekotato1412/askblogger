@@ -29,6 +29,9 @@ onready var name_rect = $DialogLayer/DialogBox/LineEdit.get_global_rect()
 onready var dialog_path = $DialogLayer/DialogBox/DialogContent.get_path()
 onready var name_path = $DialogLayer/DialogBox/LineEdit.get_path()
 
+onready var portrait_rect = $PortraitLayer/Portrait.get_global_rect()
+onready var portrait_path = $PortraitLayer/Portrait.get_path()
+
 var _preferences_location = "user://data/"
 var _images_location = "user://data/images/"
 var _exports_location = "user://exports/"
@@ -73,6 +76,42 @@ func _ready():
 		init_save()
 	
 	# TODO: Load data into components
+	if (error == OK):
+		# Textures
+		for node_path in Preferences.image_paths.keys():
+			var image_node = get_node(node_path)
+			var texture = Preferences.get_image(node_path)
+			
+			if texture == null: continue
+			
+			image_node.change_texture(texture)
+			
+		
+		# Font Info
+		var font = Preferences.get_font_path("root")
+		var font_size = Preferences.get_font_size("root")
+		
+		if (font != null and !font.empty()):
+			emit_signal("font_change", font)
+		
+		if (font_size):
+			emit_signal("font_size_change", font_size)
+			
+		# Text Content
+		for node_path in Preferences.text_content.keys():
+			var text_node = get_node(node_path)
+			var text = Preferences.get_text(node_path)
+			
+			if (text != null and !text.empty()):
+				text_node.text = text
+		
+		# Scale & Position
+		for node_path in Preferences.rects.keys():
+			var rect_node = get_node(node_path)
+			var rect = Preferences.get_rect(node_path)
+			rect_node.rect_global_position = rect.position
+			rect_node.rect_size = rect.size
+		
 	
 
 func presentation_mode():
@@ -84,13 +123,16 @@ func presentation_mode():
 
 	var dialog = get_node(dialog_path)
 	var name = get_node(name_path)
+	var portrait = get_node(portrait_path)
 	
 	# Save Rects
 	dialog_rect = dialog.get_global_rect()
 	name_rect = name.get_global_rect()
+	portrait_rect = portrait.get_global_rect()
 	
 	Preferences.add_rect(dialog_path, dialog_rect)
 	Preferences.add_rect(name_path, name_rect)
+	Preferences.add_rect(portrait_path, portrait_rect)
 	
 	# Save Text Content
 	Preferences.add_text(dialog_path, dialog.text)
@@ -119,6 +161,7 @@ func init_save():
 	
 	Preferences.add_rect(dialog_path, dialog_rect)
 	Preferences.add_rect(name_path, name_rect)
+	Preferences.add_rect(portrait_path, portrait_rect)
 		
 	Preferences.save_to_disk(_preferences_location)
 

@@ -1,0 +1,11 @@
+{
+	"title": "Fix Storage Leak",
+	"category": 3,
+	"assigned": 0,
+	"timestamp": 1696699734,
+	"hash": "94039ce6c8949779349714b32824eb01cd6b5bcfc18b0295c0fb50fd0c20b432",
+	"description": "Make the program delete the old image by making a clear_image function inside the SaveData class and run it before adding a new one.",
+	"todos": [
+
+	]
+}

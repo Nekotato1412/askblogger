@@ -19,14 +19,58 @@ const Images:Dictionary = {
 }
 
 var _image = ""
+var _image_name = "blog"
 var _font = ""
-var _save_name = "blog"
 var _mode = MODES.EDIT
 
+# TODO: Save Text Content, Scale and Position
+
+var _preferences_location = "user://data/"
+var _images_location = "user://data/images/"
+var _exports_location = "user://exports/"
+
+onready var Preferences = SaveData.new()
+
 func _ready():
+	# Initialization
 	for control in $UILayer.get_children():
 		if control.is_in_group("image_changer"):
 			control.connect("image_change", self, "_on_image_change")
+	
+	Preferences.save_name = "preferences"
+	
+	
+
+	var data_directory = Directory.new()	
+	if (data_directory.open(_preferences_location) != OK):
+		data_directory.make_dir(_preferences_location)
+		var notice_file = File.new()
+		notice_file.open(_preferences_location + "SECURITY_NOTICE.txt", File.WRITE)
+		notice_file.store_string("THINK BEFORE YOU COPY. \n.tres files can contain executable code which means you SHOULD NOT SHARE OR DOWNLOAD this file.")
+		notice_file.close()
+	
+	var image_directory = Directory.new()
+	if (image_directory.open("user://data/images") != OK):
+		image_directory.make_dir(_images_location)
+	
+	var exports_directory = Directory.new()
+	if (exports_directory.open(_exports_location) != OK):
+		exports_directory.make_dir(_exports_location)
+	
+	# Loading
+	var error = Preferences.load_from_disk(_preferences_location)
+	
+	if (error == ERR_FILE_UNRECOGNIZED):
+		$Super/AcceptDialog.window_title = "Error"
+		$Super/AcceptDialog.dialog_text = "Preferences data could not be loaded. The file could not be recognized."
+		$Super/AcceptDialog.popup_centered()
+		init_save()
+	
+	if (error == ERR_FILE_NOT_FOUND):
+		init_save()
+	
+	# TODO: Load data into components
+	
 
 func presentation_mode():
 	_mode = MODES.PRESENTATION
@@ -38,6 +82,21 @@ func edit_mode():
 	_mode = MODES.EDIT
 	emit_signal("edit_mode")
 
+func init_save():
+	Preferences.add_font("root", "")
+	Preferences.add_font_size("root", 16)
+		
+	Preferences.add_image($BackgroundLayer/Background.get_path(), "")
+	Preferences.add_image($PortraitLayer/Portrait.get_path(), "")
+	Preferences.add_image($DialogLayer/DialogBox/TextureRect.get_path(), "")
+		
+	Preferences.add_text($DialogLayer/DialogBox/DialogContent.get_path(), "")
+	Preferences.add_text($DialogLayer/DialogBox/LineEdit.get_path(), "")
+		
+	Preferences.set_flag("wizard", true)
+		
+	Preferences.save_to_disk(_preferences_location)
+
 func setup_mode():
 	_mode = MODES.SETUP
 	emit_signal("setup_mode")
@@ -45,7 +104,7 @@ func setup_mode():
 func snapshot():
 	var img = get_viewport().get_texture().get_data()
 	img.flip_y()
-	img.save_png("user://" + _save_name + ".png")
+	img.save_png(_exports_location + _image_name + ".png")
 	# warning-ignore:return_value_discarded
 	OS.shell_open(str("file://" + OS.get_user_data_dir()))
 	edit_mode()
@@ -72,7 +131,18 @@ func _on_image_selected(path):
 		$Super/ImageDialog.hide()
 		return
 	
-	# Yup, this causes a memory leak. Too bad!
+	var filename = path.get_file()
+	
+	var image_dir = Directory.new()
+	if (image_dir.open(_images_location) == OK):
+		var file_path = _images_location + filename 
+		image_dir.copy(path, file_path)
+		var img_node = get_node(_image)
+		
+		Preferences.clear_image(img_node.get_path())
+		Preferences.add_image(img_node.get_path(), file_path)
+		Preferences.save_to_disk(_preferences_location)
+	
 	var texture = ImageTexture.new()
 	texture.create_from_image(image)
 	
@@ -88,16 +158,20 @@ func change_font():
 
 func change_font_size(new_size: int):
 	emit_signal("font_size_change", new_size)
+	Preferences.add_font_size("root", new_size)
+	Preferences.save_to_disk(_preferences_location)
 
 func _on_font_selected(path):
 	emit_signal("font_change", path)
 	$Super/FontDialog.hide()
+	Preferences.add_font("root", path)
+	Preferences.save_to_disk(_preferences_location)
 
 func _on_FontChange_button_up():
 	change_font()
 
 func _on_FileName_text_changed(new_text):
-	_save_name = new_text
+	_image_name = new_text
 
 func _on_FontSize_font_size_changed(size):
 	change_font_size(size)

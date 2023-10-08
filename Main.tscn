@@ -206,6 +206,16 @@ filters = PoolStringArray( "*.ttf ; TrueType Font" )
 [node name="SizeDropdown" parent="Super" instance=ExtResource( 2 )]
 visible = false
 
+[node name="AcceptDialog" type="AcceptDialog" parent="Super"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -41.5
+margin_top = -29.0
+margin_right = 41.5
+margin_bottom = 29.0
+
 [connection signal="edit_mode" from="." to="PortraitLayer/Portrait" method="_on_Main_edit_mode"]
 [connection signal="edit_mode" from="." to="DialogLayer/DialogBox" method="_on_Main_edit_mode"]
 [connection signal="edit_mode" from="." to="UILayer" method="_on_Main_edit_mode"]

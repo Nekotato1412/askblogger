@@ -71,35 +71,141 @@ context_menu_enabled = false
 placeholder_text = "Name..."
 script = ExtResource( 2 )
 
-[node name="D_Scale_Widget_Y" parent="." instance=ExtResource( 7 )]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -18.0
-margin_top = 109.0
-margin_right = -8.0
-margin_bottom = 119.0
-target = NodePath("../DialogContent")
+[node name="D_Widgets" type="Node" parent="."]
+
+[node name="X" parent="D_Widgets" instance=ExtResource( 7 )]
+margin_left = 264.0
+margin_top = 290.0
+margin_right = 274.0
+margin_bottom = 300.0
+target = NodePath("../../DialogContent")
+
+[node name="Y" parent="D_Widgets" instance=ExtResource( 7 )]
+margin_left = 264.0
+margin_top = 290.0
+margin_right = 274.0
+margin_bottom = 300.0
+target = NodePath("../../DialogContent")
 edge_mode = 1
 
-[node name="D_Scale_Widget_X" parent="." instance=ExtResource( 7 )]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -18.0
-margin_top = 109.0
-margin_right = -8.0
-margin_bottom = 119.0
-target = NodePath("../DialogContent")
+[node name="CX" parent="D_Widgets" instance=ExtResource( 7 )]
+margin_left = 264.0
+margin_top = 290.0
+margin_right = 274.0
+margin_bottom = 300.0
+target = NodePath("../../DialogContent")
+edge_mode = 2
 
-[node name="N_Scale_Widget_X" parent="." instance=ExtResource( 7 )]
-margin_right = 10.0
-margin_bottom = 10.0
-target = NodePath("../LineEdit")
+[node name="CY" parent="D_Widgets" instance=ExtResource( 7 )]
+margin_left = 264.0
+margin_top = 290.0
+margin_right = 274.0
+margin_bottom = 300.0
+target = NodePath("../../DialogContent")
+edge_mode = 3
 
-[node name="N_Scale_Widget_Y" parent="." instance=ExtResource( 7 )]
-margin_right = 10.0
-margin_bottom = 10.0
-target = NodePath("../LineEdit")
+[node name="CXF" parent="D_Widgets" instance=ExtResource( 7 )]
+margin_left = 264.0
+margin_top = 290.0
+margin_right = 274.0
+margin_bottom = 300.0
+target = NodePath("../../DialogContent")
+edge_mode = 2
+flip = true
+
+[node name="CYF" parent="D_Widgets" instance=ExtResource( 7 )]
+margin_left = 264.0
+margin_top = 290.0
+margin_right = 274.0
+margin_bottom = 300.0
+target = NodePath("../../DialogContent")
+edge_mode = 3
+flip = true
+
+[node name="XF" parent="D_Widgets" instance=ExtResource( 7 )]
+margin_left = 264.0
+margin_top = 290.0
+margin_right = 274.0
+margin_bottom = 300.0
+target = NodePath("../../DialogContent")
+flip = true
+
+[node name="YF" parent="D_Widgets" instance=ExtResource( 7 )]
+margin_left = 264.0
+margin_top = 290.0
+margin_right = 274.0
+margin_bottom = 300.0
+target = NodePath("../../DialogContent")
 edge_mode = 1
+flip = true
+
+[node name="N_Widgets" type="Node" parent="."]
+
+[node name="CX" parent="N_Widgets" instance=ExtResource( 7 )]
+margin_left = 264.0
+margin_top = 290.0
+margin_right = 274.0
+margin_bottom = 300.0
+target = NodePath("../../LineEdit")
+edge_mode = 2
+
+[node name="CY" parent="N_Widgets" instance=ExtResource( 7 )]
+margin_left = 264.0
+margin_top = 290.0
+margin_right = 274.0
+margin_bottom = 300.0
+target = NodePath("../../LineEdit")
+edge_mode = 3
+
+[node name="CXF" parent="N_Widgets" instance=ExtResource( 7 )]
+margin_left = 264.0
+margin_top = 290.0
+margin_right = 274.0
+margin_bottom = 300.0
+target = NodePath("../../LineEdit")
+edge_mode = 2
+flip = true
+
+[node name="CYF" parent="N_Widgets" instance=ExtResource( 7 )]
+margin_left = 264.0
+margin_top = 290.0
+margin_right = 274.0
+margin_bottom = 300.0
+target = NodePath("../../LineEdit")
+edge_mode = 3
+flip = true
+
+[node name="X" parent="N_Widgets" instance=ExtResource( 7 )]
+margin_left = 297.0
+margin_top = 272.0
+margin_right = 307.0
+margin_bottom = 282.0
+target = NodePath("../../LineEdit")
+
+[node name="Y" parent="N_Widgets" instance=ExtResource( 7 )]
+margin_left = 304.0
+margin_top = 274.0
+margin_right = 314.0
+margin_bottom = 284.0
+target = NodePath("../../LineEdit")
+edge_mode = 1
+
+[node name="XF" parent="N_Widgets" instance=ExtResource( 7 )]
+margin_left = 262.0
+margin_top = 329.0
+margin_right = 272.0
+margin_bottom = 339.0
+target = NodePath("../../LineEdit")
+flip = true
+
+[node name="YF" parent="N_Widgets" instance=ExtResource( 7 )]
+margin_left = 255.0
+margin_top = 313.0
+margin_right = 265.0
+margin_bottom = 323.0
+target = NodePath("../../LineEdit")
+edge_mode = 1
+flip = true
 
 [connection signal="mouse_entered" from="DialogContent" to="DialogContent" method="_on_DialogContent_mouse_entered"]
 [connection signal="mouse_exited" from="DialogContent" to="DialogContent" method="_on_DialogContent_mouse_exited"]

@@ -118,7 +118,7 @@ func presentation_mode():
 	_mode = MODES.PRESENTATION
 	emit_signal("presentation_mode")
 	# warning-ignore:return_value_discarded
-	get_tree().create_timer(1).connect("timeout", self, "snapshot")
+	get_tree().create_timer(0.1).connect("timeout", self, "snapshot")
 	
 
 	var dialog = get_node(dialog_path)

@@ -17,6 +17,8 @@ func _ready():
 	setup_bg.border_width_top = 2
 	setup_bg.border_width_left = 2
 	setup_bg.border_width_right = 2
+	
+	get_tree().get_root().connect("size_changed", self, "_on_resize")
 
 func revert_stylebox():
 	self.add_stylebox_override("normal", default_bg)
@@ -62,8 +64,10 @@ func _on_LineEdit_mouse_entered():
 func _on_LineEdit_mouse_exited():
 	_is_hovering = false
 
-onready var last_mouse_pos = get_global_mouse_position()
+func _on_resize():
+	screen_size = get_viewport_rect().size
 
+onready var last_mouse_pos = get_global_mouse_position()
 func _process(_delta):
 	if not can_drag: return
 	
@@ -75,7 +79,6 @@ func _process(_delta):
 		_is_dragging = false
 		
 	if _is_dragging:
-		screen_size = get_viewport_rect().size
 		rect_global_position += current_mouse_pos - last_mouse_pos
 		
 		rect_global_position.x = clamp(rect_global_position.x, 0, screen_size.x - rect_size.x)
@@ -84,6 +87,8 @@ func _process(_delta):
 	last_mouse_pos = current_mouse_pos
 		
 		
+
+
 func _on_Main_font_change(path):
 	var font = get_font("font")
 	var fontData = DynamicFontData.new()

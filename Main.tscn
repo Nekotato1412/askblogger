@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://components/image_change/ImageChange.tscn" type="PackedScene" id=1]
 [ext_resource path="res://components/size_screen/SizeScreen.tscn" type="PackedScene" id=2]
@@ -22,6 +22,8 @@
 [ext_resource path="res://components/save_dialog/SuccessDialog.tscn" type="PackedScene" id=20]
 [ext_resource path="res://assets/gui/Image_add_portrait.png" type="Texture" id=21]
 [ext_resource path="res://assets/gui/image_add_textbox.png" type="Texture" id=22]
+[ext_resource path="res://assets/gui/setup_mode.png" type="Texture" id=23]
+[ext_resource path="res://assets/gui/edit_mode.png" type="Texture" id=24]
 
 [sub_resource type="StyleBoxEmpty" id=2]
 
@@ -48,10 +50,14 @@ func _on_Main_presentation_mode():
 
 func _on_Main_edit_mode():
 	show()
+	for child in get_children():
+		child.show()
 
 
 func _on_Main_setup_mode():
-	hide()
+	for child in get_children():
+		if !child.is_in_group(\"toolbar\"):
+			child.hide()
 "
 
 [sub_resource type="StyleBoxEmpty" id=11]
@@ -70,6 +76,8 @@ script/source = "extends Button
 
 
 "
+
+[sub_resource type="StyleBoxEmpty" id=17]
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
@@ -311,7 +319,7 @@ inset = true
 identifier = "background"
 target = NodePath("../..")
 
-[node name="Toolbar" type="HBoxContainer" parent="UILayer"]
+[node name="Toolbar" type="HBoxContainer" parent="UILayer" groups=["toolbar"]]
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -341,6 +349,39 @@ custom_styles/normal = SubResource( 15 )
 icon = ExtResource( 18 )
 flat = true
 script = SubResource( 16 )
+
+[node name="VSeparator" type="VSeparator" parent="UILayer/Toolbar"]
+margin_left = 72.0
+margin_right = 88.0
+margin_bottom = 40.0
+custom_constants/separation = 16
+custom_styles/separator = SubResource( 17 )
+
+[node name="SetupMode" type="Button" parent="UILayer/Toolbar"]
+margin_left = 92.0
+margin_right = 124.0
+margin_bottom = 40.0
+theme = ExtResource( 16 )
+custom_styles/hover = SubResource( 11 )
+custom_styles/pressed = SubResource( 12 )
+custom_styles/focus = SubResource( 13 )
+custom_styles/disabled = SubResource( 14 )
+custom_styles/normal = SubResource( 15 )
+icon = ExtResource( 23 )
+flat = true
+
+[node name="EditMode" type="Button" parent="UILayer/Toolbar"]
+margin_left = 128.0
+margin_right = 160.0
+margin_bottom = 40.0
+theme = ExtResource( 16 )
+custom_styles/hover = SubResource( 11 )
+custom_styles/pressed = SubResource( 12 )
+custom_styles/focus = SubResource( 13 )
+custom_styles/disabled = SubResource( 14 )
+custom_styles/normal = SubResource( 15 )
+icon = ExtResource( 24 )
+flat = true
 
 [node name="SettingsLayer" type="CanvasLayer" parent="."]
 layer = 11
@@ -416,6 +457,8 @@ visible = false
 [connection signal="mouse_exited" from="DialogLayer/DialogBox/LineEdit" to="DialogLayer/DialogBox/LineEdit" method="_on_LineEdit_mouse_exited"]
 [connection signal="button_up" from="UILayer/Toolbar/SettingsButton" to="." method="_on_SettingsButton_button_up"]
 [connection signal="button_up" from="UILayer/Toolbar/SaveButton" to="Super/SaveDialog" method="_on_Open_button_up"]
+[connection signal="button_up" from="UILayer/Toolbar/SetupMode" to="." method="setup_mode"]
+[connection signal="button_up" from="UILayer/Toolbar/EditMode" to="." method="edit_mode"]
 [connection signal="font_change" from="SettingsLayer/OptionsMenu" to="." method="_on_font_change"]
 [connection signal="font_size_changed" from="SettingsLayer/OptionsMenu" to="." method="_on_font_size_changed"]
 [connection signal="preference_updated" from="SettingsLayer/OptionsMenu" to="." method="_on_preference_updated"]

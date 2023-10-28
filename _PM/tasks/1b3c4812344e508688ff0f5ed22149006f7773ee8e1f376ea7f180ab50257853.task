@@ -1,10 +1,10 @@
 {
 	"title": "Upload Code to Github",
-	"category": 0,
+	"category": 2,
 	"assigned": 0,
 	"timestamp": 1695749842,
 	"hash": "1b3c4812344e508688ff0f5ed22149006f7773ee8e1f376ea7f180ab50257853",
-	"description": "Upload the code to GitHub as Version 1.",
+	"description": "Upload the code to GitHub as Version 0.9",
 	"todos": [
 
 	]

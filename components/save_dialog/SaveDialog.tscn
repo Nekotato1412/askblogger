@@ -1,0 +1,73 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://components/root_theme.tres" type="Theme" id=1]
+[ext_resource path="res://assets/fonts/MenuFont.tres" type="DynamicFont" id=2]
+[ext_resource path="res://components/save_dialog/SaveDialog.gd" type="Script" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.921569, 0.541176, 1, 1 )
+
+[node name="SaveDialog" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+
+[node name="Panel" type="Panel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -235.0
+margin_top = -56.0
+margin_right = 235.0
+margin_bottom = 56.0
+rect_scale = Vector2( 1, 1.00748 )
+theme = ExtResource( 1 )
+custom_styles/panel = SubResource( 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 9.0
+margin_right = -7.0
+margin_bottom = -8.0
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer"]
+margin_right = 457.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 2 )
+text = "Save..."
+align = 1
+
+[node name="FileName" type="HBoxContainer" parent="Panel/VBoxContainer"]
+margin_top = 24.0
+margin_right = 457.0
+margin_bottom = 57.0
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/FileName"]
+margin_top = 6.0
+margin_right = 61.0
+margin_bottom = 26.0
+custom_fonts/font = ExtResource( 2 )
+text = "Filename"
+
+[node name="FileName" type="LineEdit" parent="Panel/VBoxContainer/FileName"]
+margin_left = 65.0
+margin_right = 457.0
+margin_bottom = 33.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+placeholder_text = "blog"
+
+[node name="Save" type="Button" parent="Panel/VBoxContainer"]
+margin_top = 61.0
+margin_right = 457.0
+margin_bottom = 95.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Save"
+
+[connection signal="text_changed" from="Panel/VBoxContainer/FileName/FileName" to="." method="_on_FileName_text_changed"]
+[connection signal="button_up" from="Panel/VBoxContainer/Save" to="." method="_on_Save_button_up"]

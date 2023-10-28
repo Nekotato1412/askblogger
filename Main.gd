@@ -5,6 +5,10 @@ signal edit_mode
 signal setup_mode
 signal font_change
 signal font_size_change
+signal set_outline
+signal update_preference
+
+signal save_success
 
 enum MODES {
 	PRESENTATION,
@@ -90,6 +94,14 @@ func _ready():
 		# Font Info
 		var font = Preferences.get_font_path("root")
 		var font_size = Preferences.get_font_size("root")
+		var outline = Preferences.get_flag("fontoutline")
+		
+		if (outline != null):
+			emit_signal("set_outline", int(outline))
+		
+		var autoopen = Preferences.get_flag("autoopen")
+		if (autoopen != null):
+			emit_signal("update_preference", "autoopen", autoopen)
 		
 		if (font != null and !font.empty()):
 			emit_signal("font_change", font)
@@ -158,6 +170,8 @@ func init_save():
 	Preferences.add_text($DialogLayer/DialogBox/LineEdit.get_path(), "")
 		
 	Preferences.set_flag("wizard", true)
+	Preferences.set_flag("autoopen", true)
+	Preferences.set_flag("fontoutline", true)
 	
 	Preferences.add_rect(dialog_path, dialog_rect)
 	Preferences.add_rect(name_path, name_rect)
@@ -174,8 +188,12 @@ func snapshot():
 	img.flip_y()
 	img.save_png(_exports_location + _image_name + ".png")
 	# warning-ignore:return_value_discarded
-	OS.shell_open(str("file://" + OS.get_user_data_dir()))
 	edit_mode()
+	if (Preferences.get_flag("autoopen")):
+		emit_signal("save_success")
+
+func open_folder():
+	OS.shell_open(str("file://" + OS.get_user_data_dir()))
 
 func _process(_delta):
 	if Input.is_action_just_released("ui_cancel"):
@@ -243,11 +261,26 @@ func _on_font_selected(path):
 		Preferences.add_font("root", path)
 		Preferences.save_to_disk(_preferences_location)
 
-func _on_FontChange_button_up():
+func _on_font_change():
 	change_font()
 
 func _on_FileName_text_changed(new_text):
 	_image_name = new_text
 
-func _on_FontSize_font_size_changed(size):
+func _on_font_size_changed(size):
 	change_font_size(size)
+
+func _on_SettingsButton_button_up():
+	$SettingsLayer/OptionsMenu.show()	
+
+func _on_setup_mode():
+	setup_mode()
+
+func _on_preference_updated(name, flag):
+	Preferences.set_flag(name, flag)
+	if (name == "fontoutline"):
+		# true/false will return 0 or 1
+		emit_signal("set_outline", int(flag))
+
+func _on_SaveDialog_save():
+	presentation_mode()

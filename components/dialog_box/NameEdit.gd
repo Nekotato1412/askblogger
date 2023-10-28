@@ -98,3 +98,7 @@ func _on_Main_font_change(path):
 
 func _on_Main_font_size_change(size):
 	get_font("font").size = floor(size * 1.125)
+
+
+func _on_Main_set_outline(value):
+	get_font("font").outline_size = value

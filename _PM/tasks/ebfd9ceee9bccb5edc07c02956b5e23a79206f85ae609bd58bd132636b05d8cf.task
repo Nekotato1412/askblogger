@@ -1,0 +1,11 @@
+{
+	"title": "Move Modes",
+	"category": 1,
+	"assigned": 0,
+	"timestamp": 1698524358,
+	"hash": "ebfd9ceee9bccb5edc07c02956b5e23a79206f85ae609bd58bd132636b05d8cf",
+	"description": "Move the modes (other than presentation obviously) into the toolbar containing settings and the save\nbutton.",
+	"todos": [
+
+	]
+}

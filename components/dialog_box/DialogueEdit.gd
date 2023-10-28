@@ -100,3 +100,7 @@ func _on_Main_font_change(path):
 
 func _on_Main_font_size_change(size):
 	get_font("font").size = size
+
+
+func _on_Main_set_outline(value):
+	get_font("font").outline_size = value

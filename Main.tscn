@@ -304,6 +304,7 @@ target = NodePath("../../PortraitLayer/Portrait")
 inset = true
 
 [node name="BackgroundChanger" parent="UILayer" instance=ExtResource( 1 )]
+identifier = "background"
 target = NodePath("../..")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UILayer"]

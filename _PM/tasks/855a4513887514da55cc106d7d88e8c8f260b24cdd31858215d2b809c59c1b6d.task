@@ -1,0 +1,11 @@
+{
+	"title": "Fix Image Size Saving",
+	"category": 3,
+	"assigned": 0,
+	"timestamp": 1699002462,
+	"hash": "855a4513887514da55cc106d7d88e8c8f260b24cdd31858215d2b809c59c1b6d",
+	"description": "Make image size actually save",
+	"todos": [
+
+	]
+}

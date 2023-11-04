@@ -17,11 +17,11 @@ enum MODES {
 	SETUP
 }
 
-const Images:Dictionary = {
-	"background": "BackgroundLayer/Background",
-	"portrait": "PortraitLayer/Portrait",
-	"dialog": "DialogLayer/DialogBox/TextureRect"
-}
+export var background_path: NodePath = ""
+export var portrait_path: NodePath = ""
+export var dialog_path: NodePath = ""
+
+var Images:Dictionary = {}
 
 var _image = ""
 var _image_name = "blog"
@@ -37,6 +37,10 @@ func _ready():
 	for control in $UILayer.get_children():
 		if control.is_in_group("image_changer"):
 			control.connect("image_change", self, "_on_image_change")
+	
+	Images["background"] = background_path
+	Images["portrait"] = portrait_path
+	Images["dialog"] = dialog_path
 
 func _on_DataManager_data_loaded():
 	Preferences = $DataManager.get_data()
@@ -85,7 +89,7 @@ func change_image(which: String):
 	$Super/ImageDialog.show()
 	
 func _on_image_selected(path):
-	var texture = $DataManager.update_image(path)
+	var texture = $DataManager.update_image(path, get_node(_image))
 	get_node(_image).change_texture(texture)
 	$Super/ImageDialog.hide()
 	

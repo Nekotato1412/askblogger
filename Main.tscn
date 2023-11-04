@@ -85,6 +85,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 script = ExtResource( 6 )
+background_path = NodePath("BackgroundLayer/Background")
+portrait_path = NodePath("PortraitLayer/Portrait")
+dialog_path = NodePath("DialogLayer/DialogBox/TextureRect")
 
 [node name="BackgroundLayer" type="CanvasLayer" parent="."]
 layer = -1
@@ -101,6 +104,14 @@ script = ExtResource( 8 )
 layer = 0
 
 [node name="Portrait" parent="PortraitLayer" instance=ExtResource( 10 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 4.0
+margin_top = 0.0
+margin_right = 644.0
+margin_bottom = 480.0
 stretch_mode = 3
 
 [node name="DialogLayer" type="CanvasLayer" parent="."]
@@ -123,12 +134,10 @@ stretch_mode = 4
 script = ExtResource( 8 )
 
 [node name="DialogContent" type="TextEdit" parent="DialogLayer/DialogBox" groups=["presentable"]]
-anchor_top = 0.5
-anchor_bottom = 0.5
-margin_left = 8.0
-margin_top = 93.0
-margin_right = 624.0
-margin_bottom = 232.0
+margin_left = 13.0
+margin_top = 330.0
+margin_right = 629.0
+margin_bottom = 469.0
 custom_fonts/font = ExtResource( 3 )
 custom_styles/read_only = SubResource( 2 )
 custom_styles/focus = SubResource( 3 )
@@ -141,12 +150,10 @@ wrap_enabled = true
 script = ExtResource( 9 )
 
 [node name="LineEdit" type="LineEdit" parent="DialogLayer/DialogBox" groups=["presentable"]]
-anchor_top = 0.5
-anchor_bottom = 0.5
-margin_left = 8.0
-margin_top = 58.0
-margin_right = 148.0
-margin_bottom = 84.0
+margin_left = 12.0
+margin_top = 298.0
+margin_right = 140.0
+margin_bottom = 318.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_fonts/font = ExtResource( 4 )

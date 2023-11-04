@@ -189,7 +189,7 @@ func update_font(path: String):
 func update_font_size(size: int):
 	Preferences.add_font_size("root", size)
 
-func update_image(path: String, image_node: NodePath):
+func update_image(path: String, image_node: Node):
 	var image = Image.new()
 	var err = image.load(path)
 	if (err != OK):
@@ -201,10 +201,9 @@ func update_image(path: String, image_node: NodePath):
 	if (image_dir.open(_images_location) == OK):
 		var file_path = _images_location + filename 
 		image_dir.copy(path, file_path)
-		var img_node = get_node(image_node)
 		
-		Preferences.clear_image(img_node.get_path())
-		Preferences.add_image(img_node.get_path(), file_path)
+		Preferences.clear_image(image_node.get_path())
+		Preferences.add_image(image_node.get_path(), file_path)
 	
 	var texture = ImageTexture.new()
 	texture.create_from_image(image)

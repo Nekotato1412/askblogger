@@ -24,7 +24,7 @@ func _ready():
 		if child is VScrollBar:
 			remove_child(child)
 		elif child is HScrollBar:
-			remove_child(child) 
+			remove_child(child)
 		
 	get_tree().get_root().connect("size_changed", self, "_on_resize")
 

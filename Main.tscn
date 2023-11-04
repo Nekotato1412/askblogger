@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://components/image_change/ImageChange.tscn" type="PackedScene" id=1]
 [ext_resource path="res://components/size_screen/SizeScreen.tscn" type="PackedScene" id=2]
@@ -24,6 +24,7 @@
 [ext_resource path="res://assets/gui/image_add_textbox.png" type="Texture" id=22]
 [ext_resource path="res://assets/gui/setup_mode.png" type="Texture" id=23]
 [ext_resource path="res://assets/gui/edit_mode.png" type="Texture" id=24]
+[ext_resource path="res://DataManager.gd" type="Script" id=25]
 
 [sub_resource type="StyleBoxEmpty" id=2]
 
@@ -84,6 +85,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 script = ExtResource( 6 )
+background_path = NodePath("BackgroundLayer/Background")
+portrait_path = NodePath("PortraitLayer/Portrait")
+dialog_path = NodePath("DialogLayer/DialogBox/TextureRect")
 
 [node name="BackgroundLayer" type="CanvasLayer" parent="."]
 layer = -1
@@ -100,6 +104,16 @@ script = ExtResource( 8 )
 layer = 0
 
 [node name="Portrait" parent="PortraitLayer" instance=ExtResource( 10 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 0.0
+margin_top = 0.0
+margin_right = 640.0
+margin_bottom = 480.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
 
 [node name="DialogLayer" type="CanvasLayer" parent="."]
 
@@ -107,22 +121,24 @@ layer = 0
 script = ExtResource( 11 )
 
 [node name="TextureRect" type="TextureRect" parent="DialogLayer/DialogBox"]
-anchor_right = 1.0
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-margin_top = 322.0
-margin_right = 1.0
+margin_left = -321.0
+margin_top = -186.0
+margin_right = 320.0
+margin_bottom = -5.0
 texture = ExtResource( 12 )
 expand = true
-stretch_mode = 7
+stretch_mode = 4
 script = ExtResource( 8 )
 
 [node name="DialogContent" type="TextEdit" parent="DialogLayer/DialogBox" groups=["presentable"]]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 8.0
-margin_top = -107.0
-margin_right = 632.0
-margin_bottom = -5.0
+margin_left = 13.0
+margin_top = 330.0
+margin_right = 629.0
+margin_bottom = 469.0
 custom_fonts/font = ExtResource( 3 )
 custom_styles/read_only = SubResource( 2 )
 custom_styles/focus = SubResource( 3 )
@@ -135,12 +151,12 @@ wrap_enabled = true
 script = ExtResource( 9 )
 
 [node name="LineEdit" type="LineEdit" parent="DialogLayer/DialogBox" groups=["presentable"]]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = -154.0
-margin_right = 143.0
-margin_bottom = -128.0
+margin_left = 12.0
+margin_top = 298.0
+margin_right = 140.0
+margin_bottom = 318.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
 custom_fonts/font = ExtResource( 4 )
 custom_styles/read_only = SubResource( 7 )
 custom_styles/focus = SubResource( 8 )
@@ -433,6 +449,14 @@ visible = false
 [node name="SuccessDialog" parent="Super" instance=ExtResource( 20 )]
 visible = false
 
+[node name="DataManager" type="Node" parent="."]
+script = ExtResource( 25 )
+background_path = NodePath("../BackgroundLayer/Background")
+dialog_path = NodePath("../DialogLayer/DialogBox/DialogContent")
+name_path = NodePath("../DialogLayer/DialogBox/LineEdit")
+portrait_path = NodePath("../PortraitLayer/Portrait")
+dialog_texture_path = NodePath("../DialogLayer/DialogBox/TextureRect")
+
 [connection signal="edit_mode" from="." to="PortraitLayer/Portrait" method="_on_Main_edit_mode"]
 [connection signal="edit_mode" from="." to="DialogLayer/DialogBox" method="_on_Main_edit_mode"]
 [connection signal="edit_mode" from="." to="UILayer" method="_on_Main_edit_mode"]
@@ -443,6 +467,7 @@ visible = false
 [connection signal="presentation_mode" from="." to="PortraitLayer/Portrait" method="_on_Main_presentation_mode"]
 [connection signal="presentation_mode" from="." to="DialogLayer/DialogBox" method="_on_Main_presentation_mode"]
 [connection signal="presentation_mode" from="." to="UILayer" method="_on_Main_presentation_mode"]
+[connection signal="save" from="." to="DataManager" method="_on_save"]
 [connection signal="save_success" from="." to="Super/SuccessDialog" method="_on_Main_save_success"]
 [connection signal="set_outline" from="." to="DialogLayer/DialogBox/DialogContent" method="_on_Main_set_outline"]
 [connection signal="set_outline" from="." to="DialogLayer/DialogBox/LineEdit" method="_on_Main_set_outline"]
@@ -468,3 +493,9 @@ visible = false
 [connection signal="save" from="Super/SaveDialog" to="." method="_on_SaveDialog_save"]
 [connection signal="text_changed" from="Super/SaveDialog" to="." method="_on_FileName_text_changed"]
 [connection signal="open_folder" from="Super/SuccessDialog" to="." method="open_folder"]
+[connection signal="data_loaded" from="DataManager" to="." method="_on_DataManager_data_loaded"]
+[connection signal="error_thrown" from="DataManager" to="." method="_on_DataManager_error_thrown"]
+[connection signal="font_change" from="DataManager" to="." method="_on_DataManager_font_change"]
+[connection signal="font_size_change" from="DataManager" to="." method="_on_DataManager_font_size_change"]
+[connection signal="set_outline" from="DataManager" to="." method="_on_DataManager_set_outline"]
+[connection signal="update_preference" from="DataManager" to="." method="_on_DataManager_update_preference"]

@@ -21,6 +21,9 @@ export var font_paths:Dictionary = {}
 # Expected format: Node: [Rect2]
 export var rects:Dictionary = {}
 
+# Expected format: Identifier: [Vector2]
+export var sizes:Dictionary = {}
+
 func set_save_name(new_name: String):
 	self.save_name = new_name
 
@@ -47,6 +50,9 @@ func load_from_disk(location: String):
 	if (save_file.get("rects") == null):
 		return ERR_FILE_UNRECOGNIZED
 	
+	if (save_file.get("sizes") == null):
+		return ERR_FILE_UNRECOGNIZED
+	
 	self.flags = save_file.flags
 	self.image_paths = save_file.image_paths
 	self.text_content = save_file.text_content
@@ -54,6 +60,7 @@ func load_from_disk(location: String):
 	self.font_sizes = save_file.font_sizes
 	self.font_paths = save_file.font_paths
 	self.rects = save_file.rects
+	self.sizes = save_file.sizes
 	
 	return OK
 
@@ -136,6 +143,11 @@ func add_rect(node: NodePath, rect: Rect2):
 func get_rect(node: NodePath) -> Rect2:
 	return self.rects.get(node)
 
+func add_size(identifier: String, size: Vector2):
+	self.sizes[identifier] = size
+
+func get_size(identifier: String) -> Rect2:
+	return self.sizes.get(identifier)
 
 func is_class(compare: String) -> bool:
 	return compare == "SaveData"

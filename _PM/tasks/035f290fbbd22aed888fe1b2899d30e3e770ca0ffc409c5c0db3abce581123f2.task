@@ -1,0 +1,11 @@
+{
+	"title": "Create Swap Menu",
+	"category": 0,
+	"assigned": 0,
+	"timestamp": 1698755099,
+	"hash": "035f290fbbd22aed888fe1b2899d30e3e770ca0ffc409c5c0db3abce581123f2",
+	"description": "Attached to the portrait create a vertical menu that supports up to 8 options (minimum 1)\nand allows the user to quickly swap between portraits. It should allow the user to add \nand remove portraits of any arbitrary size and file name and should be loaded in the\norder it was created in. ",
+	"todos": [
+
+	]
+}

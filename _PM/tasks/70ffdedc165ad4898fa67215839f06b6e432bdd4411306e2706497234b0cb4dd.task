@@ -1,0 +1,11 @@
+{
+	"title": "Add Preferences Reset",
+	"category": 0,
+	"assigned": 0,
+	"timestamp": 1699002249,
+	"hash": "70ffdedc165ad4898fa67215839f06b6e432bdd4411306e2706497234b0cb4dd",
+	"description": "Add a reset button to delete the preferences file.",
+	"todos": [
+
+	]
+}

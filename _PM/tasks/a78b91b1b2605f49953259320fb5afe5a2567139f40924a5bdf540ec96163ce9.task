@@ -1,0 +1,11 @@
+{
+	"title": "Refactor Identifiers",
+	"category": 1,
+	"assigned": 0,
+	"timestamp": 1698754896,
+	"hash": "a78b91b1b2605f49953259320fb5afe5a2567139f40924a5bdf540ec96163ce9",
+	"description": "Refactor the way internal image identifiers are handled by removing the \nlegacy code surrounding named identifiers and instead use the node\npath of each respective texture node instead when changing\nimages. (Use the 'target' export var like it is used in widgets)",
+	"todos": [
+
+	]
+}

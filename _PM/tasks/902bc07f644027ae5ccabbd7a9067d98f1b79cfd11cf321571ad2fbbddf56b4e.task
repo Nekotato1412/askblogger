@@ -1,0 +1,11 @@
+{
+	"title": "Portrait Size Bug",
+	"category": 3,
+	"assigned": 0,
+	"timestamp": 1699060006,
+	"hash": "902bc07f644027ae5ccabbd7a9067d98f1b79cfd11cf321571ad2fbbddf56b4e",
+	"description": "Only when loading an image the portrait appears to scale to an unreasonable size.",
+	"todos": [
+
+	]
+}

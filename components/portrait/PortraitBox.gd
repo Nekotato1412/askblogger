@@ -8,9 +8,6 @@ var _is_hovering = false
 var _is_dragging = false
 var _drawing_border = false
 
-func _ready():
-	get_tree().get_root().connect("size_changed", self, "_on_resize")
-
 func _on_Main_edit_mode():
 	can_drag = false
 	hide_border()
@@ -30,14 +27,6 @@ func _on_Texture_mouse_entered():
 
 func _on_Texture_mouse_exited():
 	_is_hovering = false
-
-func _on_resize():
-	screen_size = get_viewport_rect().size
-	if (screen_size != _old_screen_size):
-		var old_difference = _old_screen_size - rect_size
-		var new_difference = screen_size - rect_size
-		rect_size = (rect_size + new_difference) - old_difference
-		_old_screen_size = screen_size
 
 onready var last_mouse_pos = get_global_mouse_position()
 func _process(_delta):
@@ -82,7 +71,7 @@ func enforce_size(dim):
 	var new_size = dim
 	new_size.x = clamp(new_size.x, 0, screen_size.x)
 	new_size.y = clamp(new_size.y, 0, screen_size.y)
-	self.set_size(new_size)
+	self.rect_size = new_size
 
 func change_texture(texture):
 	self.texture = texture

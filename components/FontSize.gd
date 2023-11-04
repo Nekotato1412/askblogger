@@ -7,6 +7,9 @@ onready var new_size = int(text)
 
 
 func _on_FontSize_text_entered(new_text):
+	validate_text(new_text)
+
+func validate_text(new_text):
 	if (int(new_text) == 0):
 		text = old_text
 		return
@@ -19,4 +22,9 @@ func _on_main_font_size_changed(size):
 	self.placeholder_text = str(size)
 
 func _on_Confirm_button_up():
-	emit_signal("font_size_changed", new_size)
+	if (int(text) > 0 or text != ""):
+		emit_signal("font_size_changed", new_size)
+
+
+func _on_FontSize_focus_exited():
+	validate_text(self.text)

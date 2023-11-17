@@ -85,9 +85,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 script = ExtResource( 6 )
-background_path = NodePath("BackgroundLayer/Background")
-portrait_path = NodePath("PortraitLayer/Portrait")
-dialog_path = NodePath("DialogLayer/DialogBox/TextureRect")
 
 [node name="BackgroundLayer" type="CanvasLayer" parent="."]
 layer = -1
@@ -317,7 +314,6 @@ margin_top = 120.0
 margin_right = -7.0
 margin_bottom = 152.0
 icon = ExtResource( 22 )
-identifier = "dialog"
 target = NodePath("../../DialogLayer/DialogBox/TextureRect")
 inset = true
 
@@ -327,12 +323,10 @@ margin_top = 30.0
 margin_right = -207.0
 margin_bottom = 62.0
 icon = ExtResource( 21 )
-identifier = "portrait"
 target = NodePath("../../PortraitLayer/Portrait")
 inset = true
 
 [node name="BackgroundChanger" parent="UILayer" instance=ExtResource( 1 )]
-identifier = "background"
 target = NodePath("../..")
 
 [node name="Toolbar" type="HBoxContainer" parent="UILayer" groups=["toolbar"]]

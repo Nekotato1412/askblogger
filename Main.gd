@@ -17,12 +17,6 @@ enum MODES {
 	SETUP
 }
 
-export var background_path: NodePath = ""
-export var portrait_path: NodePath = ""
-export var dialog_path: NodePath = ""
-
-var Images:Dictionary = {}
-
 var _image = ""
 var _image_name = "blog"
 var _font = ""
@@ -36,11 +30,7 @@ func _ready():
 	# Initialization
 	for control in $UILayer.get_children():
 		if control.is_in_group("image_changer"):
-			control.connect("image_change", self, "_on_image_change")
-	
-	Images["background"] = background_path
-	Images["portrait"] = portrait_path
-	Images["dialog"] = dialog_path
+			control.connect("image_change", self, "change_image")
 
 func _on_DataManager_data_loaded():
 	Preferences = $DataManager.get_data()
@@ -84,19 +74,16 @@ func _on_PresentationMode_button_up():
 func _on_SetupMode_button_up():
 	setup_mode()
 
-func change_image(which: String):
-	_image = Images.get(which)
+func change_image(node: Node):
+	_image = node.get_path()
 	$Super/ImageDialog.show()
 	
 func _on_image_selected(path):
-	var texture = $DataManager.update_image(path, get_node(_image))
-	get_node(_image).change_texture(texture)
+	var image = get_node(_image)
+	var texture = $DataManager.update_image(path, image)
+	image.change_texture(texture)
 	$Super/ImageDialog.hide()
-	
 	$DataManager.update_rects()
-	
-func _on_image_change(identifier: String):
-	change_image(identifier)
 
 func change_font():
 	$Super/FontDialog.show()

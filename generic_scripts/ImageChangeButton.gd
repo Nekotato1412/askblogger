@@ -1,7 +1,6 @@
 extends Button
 signal image_change
 
-export var identifier: String
 export var target: NodePath = ""
 var _scale_target
 
@@ -14,7 +13,7 @@ func _ready():
 	_scale_target = get_node(target)
 	
 func _on_press():
-	emit_signal("image_change", identifier)
+	emit_signal("image_change", _scale_target)
 
 func _process(delta):
 	# Self Positioning

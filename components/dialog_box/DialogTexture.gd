@@ -21,17 +21,18 @@ func _on_Main_presentation_mode():
 func _on_Main_setup_mode():
 	can_drag = true
 	draw_border()
+	
 
 func _ready():
 	get_tree().get_root().connect("size_changed", self, "_on_resize")
 
 func _on_resize():
 	screen_size = get_viewport_rect().size
-
-func _on_Texture_mouse_entered():
+	
+func _on_TextureRect_mouse_entered():
 	_is_hovering = true
 
-func _on_Texture_mouse_exited():
+func _on_TextureRect_mouse_exited():
 	_is_hovering = false
 
 onready var last_mouse_pos = get_global_mouse_position()
@@ -48,11 +49,8 @@ func _process(_delta):
 	if _is_dragging:
 		rect_global_position += current_mouse_pos - last_mouse_pos
 		
-		var bounds_x = rect_size.x + 75
-		var bounds_y = rect_size.y + 25
-		
-		rect_global_position.x = clamp(rect_global_position.x, -bounds_x / 2, bounds_x * 2)
-		rect_global_position.y = clamp(rect_global_position.y, -bounds_y / 2, bounds_y)
+		rect_global_position.x = clamp(rect_global_position.x, 0, screen_size.x - rect_size.x)
+		rect_global_position.y = clamp(rect_global_position.y, 0, screen_size.y - rect_size.y)
 		
 	last_mouse_pos = current_mouse_pos
 
@@ -83,3 +81,4 @@ func change_texture(texture):
 	self.texture = texture
 	enforce_size(texture.get_size())
 	center()
+

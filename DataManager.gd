@@ -26,6 +26,7 @@ export var dialog_texture_path: NodePath = ""
 var portrait_rect: Rect2
 var dialog_rect: Rect2
 var name_rect: Rect2
+var dialog_texture_rect: Rect2
 
 var _temp_forced_pos: Vector2
 
@@ -44,6 +45,7 @@ func _ready():
 	dialog_rect = get_node(dialog_path).get_global_rect()
 	name_rect = get_node(name_path).get_global_rect()
 	portrait_rect = get_node(portrait_path).get_global_rect()
+	dialog_texture_rect = get_node(dialog_texture_path).get_global_rect()
 	
 	get_tree().get_root().connect("size_changed", self, "_on_resize")
 	Preferences.set_save_name("preferences")
@@ -136,6 +138,7 @@ func _init_save():
 	Preferences.add_rect(dialog_path, dialog_rect)
 	Preferences.add_rect(name_path, name_rect)
 	Preferences.add_rect(portrait_path, portrait_rect)
+	Preferences.add_rect(dialog_texture_path, dialog_texture_rect)
 	
 	Preferences.add_size("viewport", get_viewport().size)
 		
@@ -216,11 +219,13 @@ func update_rects():
 	dialog_rect = get_node(dialog_path).get_global_rect()
 	name_rect = get_node(name_path).get_global_rect()
 	portrait_rect = get_node(portrait_path).get_global_rect()
+	dialog_texture_rect = get_node(dialog_texture_path).get_global_rect()
 
 func save_rects():
 	Preferences.add_rect(dialog_path, dialog_rect)
 	Preferences.add_rect(name_path, name_rect)
 	Preferences.add_rect(portrait_path, portrait_rect)
+	Preferences.add_rect(dialog_texture_path, dialog_texture_rect)
 
 func save_text_content():
 	var dialog = get_node(dialog_path)

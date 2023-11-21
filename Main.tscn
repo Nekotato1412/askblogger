@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://components/image_change/ImageChange.tscn" type="PackedScene" id=1]
 [ext_resource path="res://components/size_screen/SizeScreen.tscn" type="PackedScene" id=2]
@@ -25,6 +25,7 @@
 [ext_resource path="res://assets/gui/setup_mode.png" type="Texture" id=23]
 [ext_resource path="res://assets/gui/edit_mode.png" type="Texture" id=24]
 [ext_resource path="res://DataManager.gd" type="Script" id=25]
+[ext_resource path="res://components/dialog_box/DialogTexture.gd" type="Script" id=26]
 
 [sub_resource type="StyleBoxEmpty" id=2]
 
@@ -85,9 +86,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 script = ExtResource( 6 )
-background_path = NodePath("BackgroundLayer/Background")
-portrait_path = NodePath("PortraitLayer/Portrait")
-dialog_path = NodePath("DialogLayer/DialogBox/TextureRect")
 
 [node name="BackgroundLayer" type="CanvasLayer" parent="."]
 layer = -1
@@ -121,24 +119,18 @@ size_flags_vertical = 0
 script = ExtResource( 11 )
 
 [node name="TextureRect" type="TextureRect" parent="DialogLayer/DialogBox"]
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -321.0
-margin_top = -186.0
-margin_right = 320.0
-margin_bottom = -5.0
+margin_left = -1.0
+margin_top = 295.0
+margin_right = 640.0
+margin_bottom = 476.0
 texture = ExtResource( 12 )
-expand = true
-stretch_mode = 4
-script = ExtResource( 8 )
+script = ExtResource( 26 )
 
 [node name="DialogContent" type="TextEdit" parent="DialogLayer/DialogBox" groups=["presentable"]]
-margin_left = 13.0
-margin_top = 330.0
-margin_right = 629.0
-margin_bottom = 469.0
+margin_left = 7.0
+margin_top = 329.0
+margin_right = 623.0
+margin_bottom = 468.0
 custom_fonts/font = ExtResource( 3 )
 custom_styles/read_only = SubResource( 2 )
 custom_styles/focus = SubResource( 3 )
@@ -151,10 +143,10 @@ wrap_enabled = true
 script = ExtResource( 9 )
 
 [node name="LineEdit" type="LineEdit" parent="DialogLayer/DialogBox" groups=["presentable"]]
-margin_left = 12.0
-margin_top = 298.0
-margin_right = 140.0
-margin_bottom = 318.0
+margin_left = 6.0
+margin_top = 299.0
+margin_right = 137.0
+margin_bottom = 319.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_fonts/font = ExtResource( 4 )
@@ -317,7 +309,6 @@ margin_top = 120.0
 margin_right = -7.0
 margin_bottom = 152.0
 icon = ExtResource( 22 )
-identifier = "dialog"
 target = NodePath("../../DialogLayer/DialogBox/TextureRect")
 inset = true
 
@@ -327,13 +318,11 @@ margin_top = 30.0
 margin_right = -207.0
 margin_bottom = 62.0
 icon = ExtResource( 21 )
-identifier = "portrait"
 target = NodePath("../../PortraitLayer/Portrait")
 inset = true
 
 [node name="BackgroundChanger" parent="UILayer" instance=ExtResource( 1 )]
-identifier = "background"
-target = NodePath("../..")
+target = NodePath("../../BackgroundLayer/Background")
 
 [node name="Toolbar" type="HBoxContainer" parent="UILayer" groups=["toolbar"]]
 margin_right = 40.0
@@ -459,6 +448,7 @@ dialog_texture_path = NodePath("../DialogLayer/DialogBox/TextureRect")
 
 [connection signal="edit_mode" from="." to="PortraitLayer/Portrait" method="_on_Main_edit_mode"]
 [connection signal="edit_mode" from="." to="DialogLayer/DialogBox" method="_on_Main_edit_mode"]
+[connection signal="edit_mode" from="." to="DialogLayer/DialogBox/TextureRect" method="_on_Main_edit_mode"]
 [connection signal="edit_mode" from="." to="UILayer" method="_on_Main_edit_mode"]
 [connection signal="font_change" from="." to="DialogLayer/DialogBox" method="_on_Main_font_change"]
 [connection signal="font_change" from="." to="SettingsLayer/OptionsMenu" method="_on_Main_font_change"]
@@ -466,6 +456,7 @@ dialog_texture_path = NodePath("../DialogLayer/DialogBox/TextureRect")
 [connection signal="font_size_change" from="." to="SettingsLayer/OptionsMenu" method="_on_Main_font_size_change"]
 [connection signal="presentation_mode" from="." to="PortraitLayer/Portrait" method="_on_Main_presentation_mode"]
 [connection signal="presentation_mode" from="." to="DialogLayer/DialogBox" method="_on_Main_presentation_mode"]
+[connection signal="presentation_mode" from="." to="DialogLayer/DialogBox/TextureRect" method="_on_Main_presentation_mode"]
 [connection signal="presentation_mode" from="." to="UILayer" method="_on_Main_presentation_mode"]
 [connection signal="save" from="." to="DataManager" method="_on_save"]
 [connection signal="save_success" from="." to="Super/SuccessDialog" method="_on_Main_save_success"]
@@ -474,8 +465,11 @@ dialog_texture_path = NodePath("../DialogLayer/DialogBox/TextureRect")
 [connection signal="set_outline" from="." to="SettingsLayer/OptionsMenu" method="_on_Main_set_outline"]
 [connection signal="setup_mode" from="." to="PortraitLayer/Portrait" method="_on_Main_setup_mode"]
 [connection signal="setup_mode" from="." to="DialogLayer/DialogBox" method="_on_Main_setup_mode"]
+[connection signal="setup_mode" from="." to="DialogLayer/DialogBox/TextureRect" method="_on_Main_setup_mode"]
 [connection signal="setup_mode" from="." to="UILayer" method="_on_Main_setup_mode"]
 [connection signal="update_preference" from="." to="SettingsLayer/OptionsMenu" method="_on_Main_update_preference"]
+[connection signal="mouse_entered" from="DialogLayer/DialogBox/TextureRect" to="DialogLayer/DialogBox/TextureRect" method="_on_TextureRect_mouse_entered"]
+[connection signal="mouse_exited" from="DialogLayer/DialogBox/TextureRect" to="DialogLayer/DialogBox/TextureRect" method="_on_TextureRect_mouse_exited"]
 [connection signal="mouse_entered" from="DialogLayer/DialogBox/DialogContent" to="DialogLayer/DialogBox/DialogContent" method="_on_DialogContent_mouse_entered"]
 [connection signal="mouse_exited" from="DialogLayer/DialogBox/DialogContent" to="DialogLayer/DialogBox/DialogContent" method="_on_DialogContent_mouse_exited"]
 [connection signal="mouse_entered" from="DialogLayer/DialogBox/LineEdit" to="DialogLayer/DialogBox/LineEdit" method="_on_LineEdit_mouse_entered"]
@@ -487,6 +481,7 @@ dialog_texture_path = NodePath("../DialogLayer/DialogBox/TextureRect")
 [connection signal="font_change" from="SettingsLayer/OptionsMenu" to="." method="_on_font_change"]
 [connection signal="font_size_changed" from="SettingsLayer/OptionsMenu" to="." method="_on_font_size_changed"]
 [connection signal="preference_updated" from="SettingsLayer/OptionsMenu" to="." method="_on_preference_updated"]
+[connection signal="reset_preferences" from="SettingsLayer/OptionsMenu" to="DataManager" method="_on_OptionsMenu_reset_preferences"]
 [connection signal="setup_mode" from="SettingsLayer/OptionsMenu" to="." method="_on_setup_mode"]
 [connection signal="file_selected" from="Super/ImageDialog" to="." method="_on_image_selected"]
 [connection signal="file_selected" from="Super/FontDialog" to="." method="_on_font_selected"]

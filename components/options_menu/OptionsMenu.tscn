@@ -157,7 +157,7 @@ text = "Preferences"
 [node name="PreferencesOptions" type="VBoxContainer" parent="Panel/VBoxContainer/SettingsPanel/Setup"]
 margin_top = 152.0
 margin_right = 281.0
-margin_bottom = 196.0
+margin_bottom = 230.0
 mouse_filter = 2
 
 [node name="AutoOpen" type="CheckBox" parent="Panel/VBoxContainer/SettingsPanel/Setup/PreferencesOptions"]
@@ -175,6 +175,13 @@ margin_bottom = 44.0
 custom_fonts/font = ExtResource( 6 )
 pressed = true
 text = "Text Outline"
+
+[node name="ResetPrefs" type="Button" parent="Panel/VBoxContainer/SettingsPanel/Setup/PreferencesOptions"]
+margin_top = 48.0
+margin_right = 281.0
+margin_bottom = 78.0
+custom_fonts/font = ExtResource( 6 )
+text = "Erase Data"
 
 [node name="Graphics" type="VBoxContainer" parent="Panel/VBoxContainer/SettingsPanel" groups=["tab_1"]]
 visible = false
@@ -300,6 +307,19 @@ custom_styles/focus = SubResource( 1 )
 icon = ExtResource( 2 )
 flat = true
 
+[node name="EraseDialog" type="ConfirmationDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -100.0
+margin_top = -46.0
+margin_right = 100.0
+margin_bottom = 46.0
+window_title = "Warning"
+dialog_text = "ALL DATA will be erased, including imported images, text, and exports. Are you sure?"
+dialog_autowrap = true
+
 [connection signal="font_outline" from="." to="Panel/VBoxContainer/SettingsPanel/Setup" method="_on_OptionsMenu_font_outline"]
 [connection signal="font_selected" from="." to="Panel/VBoxContainer/SettingsPanel/Setup/FilesOptions/CustomFont/Current" method="_on_OptionsMenu_font_selected"]
 [connection signal="main_font_size_changed" from="." to="Panel/VBoxContainer/SettingsPanel/Graphics/FontSize/FontSize" method="_on_main_font_size_changed"]
@@ -309,6 +329,7 @@ flat = true
 [connection signal="button_up" from="Panel/VBoxContainer/SettingsPanel/Setup/FilesOptions/CustomFont/AddButton" to="." method="_on_AddButton_button_up"]
 [connection signal="toggled" from="Panel/VBoxContainer/SettingsPanel/Setup/PreferencesOptions/AutoOpen" to="." method="_on_AutoOpen_toggled"]
 [connection signal="toggled" from="Panel/VBoxContainer/SettingsPanel/Setup/PreferencesOptions/FontOutline" to="." method="_on_FontOutline_toggled"]
+[connection signal="button_up" from="Panel/VBoxContainer/SettingsPanel/Setup/PreferencesOptions/ResetPrefs" to="." method="_on_ResetPrefs_button_up"]
 [connection signal="focus_exited" from="Panel/VBoxContainer/SettingsPanel/Graphics/FontSize/FontSize" to="Panel/VBoxContainer/SettingsPanel/Graphics/FontSize/FontSize" method="_on_FontSize_focus_exited"]
 [connection signal="font_size_changed" from="Panel/VBoxContainer/SettingsPanel/Graphics/FontSize/FontSize" to="." method="_on_font_size_changed"]
 [connection signal="text_entered" from="Panel/VBoxContainer/SettingsPanel/Graphics/FontSize/FontSize" to="Panel/VBoxContainer/SettingsPanel/Graphics/FontSize/FontSize" method="_on_FontSize_text_entered"]
@@ -320,3 +341,4 @@ flat = true
 [connection signal="button_up" from="Panel/VBoxContainer/SettingsPanel/Graphics/Confirm" to="Panel/VBoxContainer/SettingsPanel/Graphics/FontSize/FontSize" method="_on_Confirm_button_up"]
 [connection signal="button_up" from="Panel/VBoxContainer/SettingsPanel/Graphics/Confirm" to="Panel/VBoxContainer/SettingsPanel/Graphics/ImageSize" method="_on_Confirm_button_up"]
 [connection signal="button_up" from="Close" to="." method="_on_Close_button_up"]
+[connection signal="confirmed" from="EraseDialog" to="." method="reset_preferences"]

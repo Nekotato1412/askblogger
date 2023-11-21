@@ -1,6 +1,8 @@
 extends Resource
 class_name SaveData
 
+export var version: int = 1
+
 export var save_name: String
 
 # Expected format: Name: True or False
@@ -27,13 +29,7 @@ export var sizes:Dictionary = {}
 func set_save_name(new_name: String):
 	self.save_name = new_name
 
-func load_from_disk(location: String):
-	var save_file = load(location + self.save_name + ".tres")
-	
-	if (save_file == null):
-		return ERR_FILE_NOT_FOUND
-		
-	
+func parse_v1(save_file):
 	if (save_file.get("image_paths") == null):
 		return ERR_FILE_UNRECOGNIZED
 	if (save_file.get("text_content") == null):
@@ -46,10 +42,8 @@ func load_from_disk(location: String):
 		return ERR_FILE_UNRECOGNIZED
 	if (save_file.get("font_paths") == null):
 		return ERR_FILE_UNRECOGNIZED
-	
 	if (save_file.get("rects") == null):
 		return ERR_FILE_UNRECOGNIZED
-	
 	if (save_file.get("sizes") == null):
 		return ERR_FILE_UNRECOGNIZED
 	
@@ -61,6 +55,24 @@ func load_from_disk(location: String):
 	self.font_paths = save_file.font_paths
 	self.rects = save_file.rects
 	self.sizes = save_file.sizes
+	
+	return OK
+
+func load_from_disk(location: String):
+	var save_file = load(location + self.save_name + ".tres")
+	
+	if (save_file == null):
+		return ERR_FILE_NOT_FOUND
+	
+	if (save_file.get("version") == null):
+		return ERR_FILE_UNRECOGNIZED
+	
+	self.version = save_file.version
+	
+	match (self.version):
+		1:
+			var err = parse_v1(save_file)
+			if (err != OK): return err
 	
 	return OK
 

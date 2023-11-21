@@ -1,0 +1,11 @@
+{
+	"title": "Save File Versioning",
+	"category": 3,
+	"assigned": 0,
+	"timestamp": 1700229219,
+	"hash": "f425d915dbadc96dac8c3b76ac365427f758b1a88604ac2b1e19085bae0639ce",
+	"description": "From this point forward use save file versioning and parsing rules for different versions whenever changing what is saved.",
+	"todos": [
+
+	]
+}

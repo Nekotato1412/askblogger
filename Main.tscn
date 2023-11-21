@@ -481,6 +481,7 @@ dialog_texture_path = NodePath("../DialogLayer/DialogBox/TextureRect")
 [connection signal="font_change" from="SettingsLayer/OptionsMenu" to="." method="_on_font_change"]
 [connection signal="font_size_changed" from="SettingsLayer/OptionsMenu" to="." method="_on_font_size_changed"]
 [connection signal="preference_updated" from="SettingsLayer/OptionsMenu" to="." method="_on_preference_updated"]
+[connection signal="reset_preferences" from="SettingsLayer/OptionsMenu" to="DataManager" method="_on_OptionsMenu_reset_preferences"]
 [connection signal="setup_mode" from="SettingsLayer/OptionsMenu" to="." method="_on_setup_mode"]
 [connection signal="file_selected" from="Super/ImageDialog" to="." method="_on_image_selected"]
 [connection signal="file_selected" from="Super/FontDialog" to="." method="_on_font_selected"]

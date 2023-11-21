@@ -236,3 +236,9 @@ func save_text_content():
 
 func _on_resize():
 	Preferences.add_size("viewport", get_viewport().size)
+
+
+func _on_OptionsMenu_reset_preferences():
+	var path = ProjectSettings.globalize_path("user://")
+	OS.move_to_trash(path)
+	get_tree().quit(0)

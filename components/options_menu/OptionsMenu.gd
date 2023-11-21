@@ -3,6 +3,7 @@ signal font_change
 signal font_size_changed
 signal setup_mode
 signal preference_updated
+signal reset_preferences
 
 # From Main
 signal font_selected
@@ -45,3 +46,10 @@ func _on_Main_set_outline(outline):
 
 func _on_Main_update_preference(name, flag):
 	emit_signal("update_preference", name, flag)
+
+func reset_preferences():
+	emit_signal("reset_preferences")
+
+
+func _on_ResetPrefs_button_up():
+	$EraseDialog.popup_centered()
